@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    	<!-- Segment -->
+    	<record id="is_product_segment_view_tree" model="ir.ui.view">
+            <field name="name">is.product.segment.view.tree</field>
+            <field name="model">is.product.segment</field>
+            <field name="arch" type="xml">
+            	<tree string="Segments">
+            		<field name="name" />
+            	</tree>
+            </field>
+        </record>
+        
+        <record id="is_product_segment_view_form" model="ir.ui.view">
+            <field name="name">is.product.segment.view.form</field>
+            <field name="model">is.product.segment</field>
+            <field name="arch" type="xml">
+            	<form string="Segments">
+            	  <group>
+            		<field name="name" />
+            		<field name="family_line">
+            			<tree string="Familles" editable="bottom">
+            				<field name="name" />
+            				<field name="segment_id" required="0" invisible="1" />
+            			</tree>
+            		</field>
+            		<field name="description" placeholder="Commentaire ..."/>
+            	  </group>           		
+            	</form>
+            </field>
+        </record>
+        
+        <record id="action_product_segment" model="ir.actions.act_window">
+            <field name="name">Segments</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">is.product.segment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem
+    		  id="menu_action_product_segment" 
+    		  parent="base.menu_product"
+    		  sequence="30"
+    		  action="action_product_segment" 
+    		  groups="group_is_pg_manager" />
+    		  
+    	<!-- Families -->
+    	<record id="is_product_family_view_tree" model="ir.ui.view">
+            <field name="name">is.product.family.view.tree</field>
+            <field name="model">is.product.famille</field>
+            <field name="arch" type="xml">
+            	<tree string="Familles">
+            		<field name="name" />
+            		<field name="segment_id" />
+            	</tree>
+            </field>
+        </record>
+        
+        <record id="is_product_family_view_form" model="ir.ui.view">
+            <field name="name">is.product.family.view.form</field>
+            <field name="model">is.product.famille</field>
+            <field name="arch" type="xml">
+            	<form string="Familles">
+            	  <group>
+            		<field name="name" />
+            		<field name="segment_id" />
+            	  </group>
+            	  <group>
+            		<field name="sub_family_line" >
+            			<tree string="Sous Familles" editable="bottom">
+            				<field name="name" />
+            				<field name="family_id" required="0" invisible="1" />
+            			</tree>
+            		</field>
+            		<field name="description" placeholder="Commentaire ..."/>  
+            	  </group>        		
+            	</form>
+            </field>
+        </record>
+        
+        <record id="action_product_family" model="ir.actions.act_window">
+            <field name="name">Familles</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">is.product.famille</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem
+    		  id="menu_action_product_family" 
+    		  parent="base.menu_product"
+    		  sequence="35"
+    		  action="action_product_family" 
+    		  groups="group_is_pg_manager" />
+    		  
+    	<!-- Sub Families -->
+    	<record id="is_product_subfamily_view_tree" model="ir.ui.view">
+            <field name="name">is.product.subfamily.view.tree</field>
+            <field name="model">is.product.sous.famille</field>
+            <field name="arch" type="xml">
+            	<tree string="Sous familles">
+            		<field name="name" />
+            		<field name="family_id" />
+            	</tree>
+            </field>
+        </record>
+        
+        <record id="is_product_subfamily_view_form" model="ir.ui.view">
+            <field name="name">is.product.subfamily.view.form</field>
+            <field name="model">is.product.sous.famille</field>
+            <field name="arch" type="xml">
+            	<form string="Sous familles">
+            	  <group>
+            		<field name="name" />
+            		<field name="family_id" />
+            	  </group>
+            		<field name="description" placeholder="Commentaire ..."/>           		
+            	</form>
+            </field>
+        </record>
+        
+        <record id="action_product_subfamily" model="ir.actions.act_window">
+            <field name="name">Sous familles</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">is.product.sous.famille</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem
+    		  id="menu_action_product_subfamily" 
+    		  parent="base.menu_product"
+    		  sequence="40"
+    		  action="action_product_subfamily" 
+    		  groups="group_is_pg_manager" />
+    		  
+    	<!-- Masquer les champs -->
+    	<record id="is_product_champs_view_tree" model="ir.ui.view">
+            <field name="name">is.product.champs.view.tree</field>
+            <field name="model">is.product.view</field>
+            <field name="arch" type="xml">
+            	<tree string="Masquer les champs">
+            		<field name="fields_id" />
+            		<field name="segment_id" />
+            	</tree>
+            </field>
+        </record>
+        
+        <record id="is_product_champs_view_form" model="ir.ui.view">
+            <field name="name">is.product.champs.view.form</field>
+            <field name="model">is.product.view</field>
+            <field name="arch" type="xml">
+            	<form string="Masquer les champs">
+            	  <group>
+            		<field name="fields_id" />
+            		<field name="segment_id" />
+            	  </group>
+            	</form>
+            </field>
+        </record>
+        
+        <record id="action_product_champs" model="ir.actions.act_window">
+            <field name="name">Masquer champs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">is.product.view</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem
+    		  id="menu_action_product_champs" 
+    		  parent="base.menu_product"
+    		  sequence="45"
+    		  action="action_product_champs" 
+    		  groups="group_is_pg_manager" />
+    
+    	<!-- Fiche Article -->
+    	<record id="sahara_product_view_form" model="ir.ui.view">
+            <field name="name">sahara.product.view.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_code']" position="replace">
+                    <field name="related_default_code" invisible="1"/>
+                    <field name="default_code" attrs="{'invisible': [('related_default_code', '=', True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='ean13']" position="replace">
+                    <field name="related_ean13" invisible="1"/>
+                    <field name="ean13" attrs="{'invisible': [('related_ean13', '=', True)]}"/>
+                </xpath>
+            	<xpath expr="//page[@string='Information']" position="after">
+                    <page name="is_product" string="Segmentation">
+                    	<group>
+                    		<field name="segment_id" on_change="onchange_segment_id(segment_id)"/>
+                    		<field name="family_id" context="{'default_segment_id':segment_id}" on_change="onchange_family_id(family_id)"/>
+                    		<field name="sub_family_id" context="{'default_family_id':family_id}" />
+                    	</group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    	
+    </data>
+</openerp>
