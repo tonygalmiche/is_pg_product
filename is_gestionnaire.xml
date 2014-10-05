@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+  <data>
+
+    <!-- form view -->
+    <record model="ir.ui.view" id="is_gestionnaire_form_view">
+      <field name="name">is_gestionnaire_form_view</field>
+      <field name="model">is.gestionnaire</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Form" version="7.0">  
+        <sheet>
+          <group col="2" colspan="4">
+            <field name="name"/> 
+            <field name="commentaire"/> 
+          </group>
+        </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- tree -->
+    <record model="ir.ui.view" id="is_gestionnaire_tree_view">
+      <field name="name">is_gestionnaire_tree_view</field>
+      <field name="model">is.gestionnaire</field>
+      <field name="type">tree</field>
+       <field name="arch" type="xml">
+        <tree string="tree">
+          <field name="name"/>
+          <field name="commentaire"/> 
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- search -->
+    <record model="ir.ui.view" id="is_gestionnaire_filter_view" >
+      <field name="name">is_gestionnaire_filter_view</field>
+      <field name="model">is.gestionnaire</field>
+      <field name="arch" type="xml">
+      <search string="Recherche">
+        <field name="name"        filter_domain="[('name', 'ilike', self)]"/>
+        <field name="commentaire" filter_domain="[('commentaire', 'ilike', self)]"/>
+      </search>
+      </field>
+    </record>
+
+
+    <!-- action -->
+    <record model="ir.actions.act_window" id="is_gestionnaire_action">
+      <field name="name">Gestionnaires</field>
+      <field name="res_model">is.gestionnaire</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--
+    <menuitem id="menu_is_mold_project" sequence="12" name="Projets des moules" parent="mrp.menu_mrp_bom" action="is_mold_project_action" />
+    -->
+
+  </data>
+</openerp>

@@ -3,17 +3,23 @@
 {
     'name': 'Fiche Article',
     'version': '1.0',
-    'category': 'InfoSaone',
+    'category': 'InfoSaône',
     'description': """
 Ameliorer la fiche article
 """,
     'author': 'Tony GALMICHE / Asma BOUSSELMI',
     'maintainer': 'InfoSaone',
     'website': 'http://www.infosaone.com',
-    'depends': ['product', 'sale'],
+    'depends': [
+        'product', 
+        'sale',
+        'is_mrp',
+    ],
     'data': ['security/is_pg_security.xml',
              'security/ir.model.access.csv',
              'view/is_product_view.xml',
+             'is_category.xml',
+             'is_gestionnaire.xml',
              ],
     'demo': [],
     'test': [],

@@ -1,6 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+
+
+    <!-- form product-->
+    <record model="ir.ui.view" id="is_product_form_view">
+      <field name="name">is_product_form_view</field>
+      <field name="model">product.product</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Form" version="7.0">
+          <sheet>
+            <group colspan="4">
+              <group>
+                <field name="default_code" string="Code"/>
+
+                <field name="name" string="Désignation"/>
+
+                <field name="segment_id"                                                on_change="onchange_segment_id(segment_id)"/>
+                <field name="family_id"     context="{'default_segment_id':segment_id}" on_change="onchange_family_id(family_id)"/>
+                <field name="sub_family_id" context="{'default_family_id':family_id}" />
+              </group>
+              <group>
+                <field name="is_category_id"/>
+                <field name="is_gestionnaire_id"/>
+              </group>
+
+            </group>
+
+
+
+            <notebook>
+
+              <page string="Informations et poids">
+                <group colspan="4">
+                  <group string="Informations">
+
+                    <field name="related_is_mold_id" invisible="1"/>
+                    <field name="is_mold_id" attrs="{'invisible': [('related_is_mold_id', '=', True)]}"/>
+
+                    <field name="is_ref_client"/>
+                    <field name="is_ref_fournisseur"/>
+                    <field name="is_ref_plan"/>
+                    <field name="is_ind_plan"/>
+                    <field name="is_couleur"/>
+
+                  </group>
+                  <group name="Poids" string="Poids">
+                    <field digits="(14, 3)" name="weight"/>
+                    <field digits="(14, 3)" name="weight_net"/>
+                  </group>
+                </group>
+              </page>
+
+
+
+              <page string="Fabrication">
+                <group colspan="4">
+                  <group>
+                    <field name="is_stock_secu"/>
+                    <field name="lot_mini"/>
+                    <field name="multiple"/>
+                    <field name="delai_fabrication"/>
+                    <field name="temps_realisation"/>
+                    <field name="is_perte"/>
+                    <field name="is_destockage"/>
+                  </group>
+                  <group>
+                    <field name="is_soumise_regl"/>
+                    <field name="is_livree_aqp"/>
+                    <field name="is_droite_grauche"/>
+                  </group>
+                </group>
+              </page>
+
+
+              <page string="Unités">
+                <group colspan="4">
+                  <group>
+                    <field name="uom_id"/>
+                    <field name="uom_po_id"/>
+                  </group>
+                  <group>
+                  </group>
+                </group>
+              </page>
+
+
+
+              <page string="Autre">
+                <group colspan="4">
+                  <group>
+                    <field name="sale_ok"/>
+                    <field name="purchase_ok"/>
+                    <field name="type"/>
+                  </group>
+                  <group>
+                    <field name="active"/>
+                    <field name="categ_id"/>
+                 </group>
+                </group>
+              </page>
+
+
+
+            </notebook>
+
+
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- tree -->
+    <record model="ir.ui.view" id="is_product_tree_view">
+      <field name="name">is_product_tree_view</field>
+      <field name="model">product.product</field>
+      <field name="type">tree</field>
+       <field name="arch" type="xml">
+        <tree string="tree">
+          <field name="default_code" string="Code"/>
+          <field name="name" string="Désignation"/>
+          <field name="segment_id"/>
+          <field name="is_mold_id"/>
+          <field name="qty_available" string="Stock"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- search -->
+    <record model="ir.ui.view" id="is_product_search_view" >
+      <field name="name">is_product_search_view</field>
+      <field name="model">product.product</field>
+      <field name="arch" type="xml">
+      <search string="Recherche">
+        <field name="default_code" filter_domain="[('default_code', 'ilike', self)]"/>
+        <field name="name"         filter_domain="[('name', 'ilike', self)]"/>
+        <field name="segment_id"   filter_domain="[('segment_id', 'ilike', self)]"/>
+      </search>
+      </field>
+    </record>
+
+
+
+
+    <!-- action -->
+    <record model="ir.actions.act_window" id="is_product_action">
+      <field name="name">Articles</field>
+      <field name="res_model">product.product</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="is_product_form_view"/>
+      <field name="search_view_id" ref="is_product_search_view"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="is_product_action_tree">
+        <field name="act_window_id" ref="is_product_action"/>
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="is_product_tree_view"/>
+    </record>
+
+
+
+
+
+
+
+
     
     	<!-- Segment -->
     	<record id="is_product_segment_view_tree" model="ir.ui.view">
@@ -178,6 +344,7 @@
     		  groups="group_is_pg_manager" />
     
     	<!-- Fiche Article -->
+      <!--
     	<record id="sahara_product_view_form" model="ir.ui.view">
             <field name="name">sahara.product.view.form</field>
             <field name="model">product.template</field>
@@ -202,6 +369,7 @@
                 </xpath>
             </field>
         </record>
+        -->
     	
     </data>
 </openerp>
