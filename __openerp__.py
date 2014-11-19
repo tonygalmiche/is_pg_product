@@ -13,13 +13,13 @@ Ameliorer la fiche article
     'depends': [
         'product', 
         'sale',
-        'is_mrp',
+        'stock'
     ],
     'data': ['security/is_pg_security.xml',
              'security/ir.model.access.csv',
              'view/is_product_view.xml',
-             'is_category.xml',
-             'is_gestionnaire.xml',
+             'view/is_category.xml',
+             'view/is_gestionnaire.xml',
              ],
     'demo': [],
     'test': [],
