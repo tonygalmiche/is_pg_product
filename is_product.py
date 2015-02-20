@@ -111,8 +111,8 @@ class is_product_product(osv.osv):
         'multiple': fields.float('Multiple de'),
         'related_multiple': fields.boolean('Champ technique'),
         
-        'delai_fabrication': fields.integer('Delai de fabrication minimum en jours'),
-        'related_delai_fabrication': fields.boolean('Champ technique'),
+        'delai_cq': fields.integer('Délai contrôle qualité'),
+        'related_delai_cq': fields.boolean('Champ technique'),
         
         'temps_realisation': fields.float('Temps de realisation en secondes'),
         'related_temps_realisation': fields.boolean('Champ technique'),
@@ -122,6 +122,9 @@ class is_product_product(osv.osv):
         'related_default_code':  fields.boolean('Champ technique'),
         'related_ean13': fields.boolean('Champ technique'),
         'related_lst_price': fields.boolean('Champ technique'),
+        
+        'lot_livraison': fields.float('Lot de livraison'),
+        'multiple_livraison': fields.float('Multiple de livraison'),
 
     }
     

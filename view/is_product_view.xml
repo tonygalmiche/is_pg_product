@@ -58,8 +58,8 @@
                     <field name="lot_mini" attrs="{'invisible': [('related_lot_mini', '=', True)]}"/>
                     <field name="related_multiple" invisible="1"/>
                     <field name="multiple" attrs="{'invisible': [('related_multiple', '=', True)]}"/>
-                    <field name="related_delai_fabrication" invisible="1"/>
-                    <field name="delai_fabrication" attrs="{'invisible': [('related_delai_fabrication', '=', True)]}"/>
+                    <field name="related_delai_cq" invisible="1"/>
+                    <field name="delai_cq" attrs="{'invisible': [('related_delai_cq', '=', True)]}"/>
                     <field name="related_temps_realisation" invisible="1"/>
                     <field name="temps_realisation" attrs="{'invisible': [('related_temps_realisation', '=', True)]}"/>
                     <field name="related_is_perte" invisible="1"/>
@@ -364,8 +364,8 @@
                     		<field name="lot_mini" attrs="{'invisible': [('related_lot_mini', '=', True)]}"/>
                     		<field name="related_multiple" invisible="1"/>
                     		<field name="multiple" attrs="{'invisible': [('related_multiple', '=', True)]}"/>
-                    		<field name="related_delai_fabrication" invisible="1"/>
-                    		<field name="delai_fabrication" attrs="{'invisible': [('related_delai_fabrication', '=', True)]}"/>
+                    		<field name="related_delai_cq" invisible="1"/>
+                    		<field name="delai_cq" attrs="{'invisible': [('related_delai_cq', '=', True)]}"/>
                     		<field name="related_temps_realisation" invisible="1"/>
                     		<field name="temps_realisation" attrs="{'invisible': [('related_temps_realisation', '=', True)]}"/>
                     		<field name="related_is_perte" invisible="1"/>
@@ -405,7 +405,14 @@
                 		<field name="related_is_gestionnaire_id" invisible="1"/>
                 		<field name="is_gestionnaire_id" attrs="{'invisible': [('related_is_gestionnaire_id', '=', True)]}"/>
               		</group>
-                </xpath>            
+                </xpath> 
+                
+                <xpath expr="//group[@name='sale_condition']" position="after">
+              		<group string='Livraison'>
+                		<field name="lot_livraison"/>
+                		<field name="multiple_livraison" />
+              		</group>
+                </xpath>             
             	
             </field>
         </record> 
