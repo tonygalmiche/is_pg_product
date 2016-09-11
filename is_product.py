@@ -17,6 +17,17 @@ class is_section_analytique(osv.osv):
         'name': fields.char('Section analytique', required=True),
     }
 
+class is_budget_responsable(osv.osv):
+    _name = 'is.budget.responsable'
+    _columns = {
+        'name': fields.char('Responsable budget', required=True),
+    }
+
+class is_budget_nature(osv.osv):
+    _name = 'is.budget.nature'
+    _columns = {
+        'name': fields.char('Nature budget', required=True),
+    }
 
 
 class is_product_segment(osv.osv):
@@ -205,6 +216,9 @@ class product_template(osv.osv):
 
         'is_section_analytique_id': fields.many2one('is.section.analytique', 'Section analytique'),
 
+        'is_budget_responsable_id': fields.many2one('is.budget.responsable', 'Responsable budget'),
+        'is_budget_nature_id'     : fields.many2one('is.budget.nature'     , 'Nature budget'),
+        'is_budget_fv': fields.selection([('F','Fixe'),('V','Variable')], "Budget Fixe ou Variable"),
     }
     
     _defaults = {        

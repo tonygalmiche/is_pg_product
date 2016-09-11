@@ -6,6 +6,7 @@ access_is_pg_masque_champs_manager,is.pg.masque.champ.manager,model_is_product_v
 access_is_category,access_is_category,model_is_category,group_is_pg_manager,1,1,1,1
 access_is_gestionnaire,access_is_gestionnaire,model_is_gestionnaire,group_is_pg_manager,1,1,1,1
 access_is_section_analytique,access_is_section_analytique,model_is_section_analytique,group_is_pg_manager,1,1,1,1
-
+access_is_budget_responsable,access_is_budget_responsable,model_is_budget_responsable,group_is_pg_manager,1,1,1,1
+access_is_budget_nature,access_is_budget_nature,model_is_budget_nature,group_is_pg_manager,1,1,1,1
 access_gestionnaire_donnees_techniques,access_gestionnaire_donnees_techniques,model_product_template,is_gestionnaire_donnees_techniques_group,1,1,1,1
 

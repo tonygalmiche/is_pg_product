@@ -39,12 +39,6 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <menuitem
-              id="menu_action_product_segment" 
-              parent="base.menu_product"
-              sequence="30"
-              action="action_product_segment" 
-              groups="group_is_pg_manager" />
               
         <!-- Families -->
         <record id="is_product_family_view_tree" model="ir.ui.view">
@@ -88,12 +82,6 @@
             <field name="view_mode">tree,form</field>
         </record>
         
-        <menuitem
-              id="menu_action_product_family" 
-              parent="base.menu_product"
-              sequence="35"
-              action="action_product_family" 
-              groups="group_is_pg_manager" />
               
         <!-- Sub Families -->
         <record id="is_product_subfamily_view_tree" model="ir.ui.view">
@@ -129,12 +117,6 @@
             <field name="view_mode">tree,form</field>
         </record>
         
-        <menuitem
-              id="menu_action_product_subfamily" 
-              parent="base.menu_product"
-              sequence="40"
-              action="action_product_subfamily" 
-              groups="group_is_pg_manager" />
               
 
 
@@ -156,6 +138,41 @@
             <field name="view_mode">tree</field>
         </record>
 
+        <!-- Responsable budget -->
+        <record id="is_budget_responsable_tree_view" model="ir.ui.view">
+            <field name="name">is_budget_responsable_tree_view</field>
+            <field name="model">is.budget.responsable</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_budget_responsable_action" model="ir.actions.act_window">
+            <field name="name">Responsable budget</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">is.budget.responsable</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <!-- Nature budget -->
+        <record id="is_budget_nature_tree_view" model="ir.ui.view">
+            <field name="name">is_budget_nature_tree_view</field>
+            <field name="model">is.budget.nature</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_budget_nature_action" model="ir.actions.act_window">
+            <field name="name">Responsable nature</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">is.budget.nature</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
 
 
 
@@ -357,6 +374,9 @@
 
                 <xpath expr="//field[@name='taxes_id']" position="after">
                     <field name="is_section_analytique_id"/>
+                    <field name="is_budget_nature_id"/>
+                    <field name="is_budget_responsable_id"/>
+                    <field name="is_budget_fv"/>
                 </xpath>             
 
 
@@ -460,18 +480,6 @@
         <field name="view_mode">tree</field>
         <field name="view_id" ref="is_product_tree_view"/>
     </record>
-
-    <menuitem id="is_product_menu"  sequence="20" name="Articles"  parent="is_plastigray.menu_is_articles"    action="is_product_action" />
-
-
-
-
-    <menuitem id="menu_is_dt_tables_50" sequence="50" name="Segments"              parent="is_plastigray.menu_is_dt_tables"   action="is_pg_product.action_product_segment" />
-    <menuitem id="menu_is_dt_tables_60" sequence="60" name="Familles"              parent="is_plastigray.menu_is_dt_tables"   action="is_pg_product.action_product_family" />
-    <menuitem id="menu_is_dt_tables_70" sequence="70" name="Sous-Familles"         parent="is_plastigray.menu_is_dt_tables"   action="is_pg_product.action_product_subfamily" />
-    <menuitem id="menu_is_dt_tables_80" sequence="80" name="Masquer champs"        parent="is_plastigray.menu_is_dt_tables"   action="is_pg_product.action_product_champs" />
-    <menuitem id="menu_is_dt_tables_90" sequence="90" name="Catégories"            parent="is_plastigray.menu_is_dt_tables"   action="is_pg_product.is_category_action" />
-    <menuitem id="menu_is_dt_tables_91" sequence="91" name="Gestionnaires"         parent="is_plastigray.menu_is_dt_tables"   action="is_pg_product.is_gestionnaire_action" />
 
 
 
