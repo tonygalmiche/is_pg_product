@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-
 {
     'name': 'Fiche Article',
     'version': '1.0',
-    'category': 'InfoSaône',
+    'category' : 'InfoSaône\Plastigray',
     'description': """
 Ameliorer la fiche article
 """,
@@ -13,18 +12,20 @@ Ameliorer la fiche article
     'depends': [
         'product', 
         'sale',
-        'stock'
+        'stock',
+        #'is_mold'
     ],
-    'data': ['security/is_pg_security.xml',
-             'security/ir.model.access.csv',
-             'view/is_product_view.xml',
-             'view/is_category.xml',
-             'view/is_gestionnaire.xml',
-             ],
+    'data': [
+        'security/is_pg_security.xml',
+        'security/ir.model.access.csv',
+        'is_product_view.xml',
+        'is_category_view.xml',
+        'is_gestionnaire_view.xml',
+    ],
     'demo': [],
     'test': [],
     'installable': True,
     'auto_install': False,
     'application': True,
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+

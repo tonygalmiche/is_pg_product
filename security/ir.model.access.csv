@@ -3,3 +3,9 @@ access_is_pg_segment_manager,is.pg.segment.manager,model_is_product_segment,grou
 access_is_pg_famille_manager,is.pg.famille.manager,model_is_product_famille,group_is_pg_manager,1,1,1,1
 access_is_pg_sous_famille_manager,is.pg.sous.famille.manager,model_is_product_sous_famille,group_is_pg_manager,1,1,1,1
 access_is_pg_masque_champs_manager,is.pg.masque.champ.manager,model_is_product_view,group_is_pg_manager,1,1,1,1
+access_is_category,access_is_category,model_is_category,group_is_pg_manager,1,1,1,1
+access_is_gestionnaire,access_is_gestionnaire,model_is_gestionnaire,group_is_pg_manager,1,1,1,1
+access_is_section_analytique,access_is_section_analytique,model_is_section_analytique,group_is_pg_manager,1,1,1,1
+
+access_gestionnaire_donnees_techniques,access_gestionnaire_donnees_techniques,model_product_template,is_gestionnaire_donnees_techniques_group,1,1,1,1
+

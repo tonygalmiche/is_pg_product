@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+
+        <!-- form view -->
+        <record model="ir.ui.view" id="is_category_form_view">
+            <field name="name">is_category_form_view</field>
+            <field name="model">is.category</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Form" version="7.0">  
+                    <sheet>
+                        <group col="2" colspan="4">
+                            <field name="name"/> 
+                            <field name="commentaire"/> 
+                            <field name="fantome"/> 
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- tree view -->
+        <record model="ir.ui.view" id="is_category_tree_view">
+            <field name="name">is_category_tree_view</field>
+            <field name="model">is.category</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="tree" editable="top">
+                    <field name="name"/>
+                    <field name="commentaire"/> 
+                    <field name="fantome"/> 
+                </tree>
+            </field>
+        </record>
+
+        <!-- search -->
+        <record model="ir.ui.view" id="is_category_filter_view" >
+            <field name="name">is_category_filter_view</field>
+            <field name="model">is.category</field>
+            <field name="arch" type="xml">
+                <search string="Recherche">
+                    <field name="name"/>
+                    <field name="commentaire"/>
+                    <field name="fantome"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- action -->
+        <record model="ir.actions.act_window" id="is_category_action">
+            <field name="name">Catégorie</field>
+            <field name="res_model">is.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+  </data>
+</openerp>

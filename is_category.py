@@ -1,19 +1,17 @@
 # -*- coding: utf-8 -*-
 
-from openerp.osv import fields, osv
+from openerp import models,fields,api
 from openerp.tools.translate import _
 
-class is_category(osv.osv):
+class is_category(models.Model):
     _name='is.category'
     _order='name'    #Ordre de tri par defaut des listes
     _sql_constraints = [('name_uniq','UNIQUE(name)', 'Ce code existe déjà')] 
 
+    name         = fields.Char("Code",size=40,required=True, select=True)
+    commentaire  = fields.Char('Intitulé')
+    fantome      = fields.Boolean('Article fantôme', \
+        help="Si cette case est cochée, les articles de cette catégorie passeront en fantôme dans les composants de la nomenclature")
 
-    #ATTENTION : Pour que la relation many2one affiche le code du moule, le champ doit être nommé 'name' sinon il faut surcharger la méthode name_get
-    _columns={
-        'name':fields.char("Code",size=40,required=True, select=True),
-        'commentaire': fields.text('Commentaire'),
-    }
 
-is_category()
 
