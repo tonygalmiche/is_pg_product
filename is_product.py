@@ -296,14 +296,14 @@ class product_template(osv.osv):
 
     
 
-    def copy(self, cr, uid, id, default=None, context=None):
-        if not context:
-            context = {}
-        product = self.read(cr, uid, id, ['is_code'], context=context)
-        default.update({
-            'is_code': product['is_code'] + _(' (copy)'),
-        })
-        return super(product_template, self).copy(cr, uid, id, default=default, context=context)
+#    def copy(self, cr, uid, id, default=None, context=None):
+#        if not context:
+#            context = {}
+#        product = self.read(cr, uid, id, ['is_code'], context=context)
+#        default.update({
+#            'is_code': product['is_code'] + _(' (copy)'),
+#        })
+#        return super(product_template, self).copy(cr, uid, id, default=default, context=context)
 
     # onchange_segment_id
     def onchange_segment_id(self, cr, uid, ids, segment_id, context=None):
