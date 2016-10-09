@@ -252,8 +252,11 @@ class product_template(osv.osv):
 
 
     def name_get(self, cr, uid, ids, context=None):
-        if not len(ids):
-            return []
+
+        #print "ids=",ids
+
+        #if not len(ids):
+        #    return []
         res = []
         for product in self.browse(cr, uid, ids, context=context):
             #p_name = pckg.ean and '[' + pckg.ean + '] ' or ''
