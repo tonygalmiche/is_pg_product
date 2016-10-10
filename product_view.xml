@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+
+        <!-- Configuration des champs -->
+        <record model="ir.ui.view" id="is_config_champ_tree_view">
+            <field name="name">is.config.champ.tree</field>
+            <field name="model">is.config.champ</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="is_config_champ_form_view">
+            <field name="name">is.config.champ.form</field>
+            <field name="model">is.config.champ</field>
+            <field name="arch" type="xml">
+            <form>
+                <sheet class="oe_form_sheet_width_wider">
+                    <group>
+                        <group string="Configuration des champs">
+                            <field name="name" context="{'config_champ': 1}"  />
+                        </group>
+                    </group>
+                    <group>
+                        <field name="champs_line" nolabel="1"  context="{'model':name}">
+                            <tree editable="bottom">
+                                <field name="segment_id"  invisible="1"/>
+                                <field name="name" domain="" context="{'config_champ': 1}" />
+                                <field name="vsb"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="is_config_champ_search_view" >
+            <field name="name">is.config.champ.search</field>
+            <field name="model">is.config.champ</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+        <record id="is_config_champ_action" model="ir.actions.act_window">
+            <field name="name">Configuration des champs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">is.config.champ</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+
+        <!-- Segment -->
+        <record id="is_product_segment_view_tree" model="ir.ui.view">
+            <field name="name">is.product.segment.view.tree</field>
+            <field name="model">is.product.segment</field>
+            <field name="arch" type="xml">
+                <tree string="Segments">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_product_segment_view_form" model="ir.ui.view">
+            <field name="name">is.product.segment.view.form</field>
+            <field name="model">is.product.segment</field>
+            <field name="arch" type="xml">
+                <form string="Segments">
+                  <group>
+                    <field name="name" />
+                    <field name="family_line">
+                        <tree string="Familles" editable="bottom">
+                            <field name="name" />
+                            <field name="segment_id" required="0" invisible="1" />
+                        </tree>
+                    </field>
+                    <field name="description" placeholder="Commentaire ..."/>
+                  </group>                   
+                </form>
+            </field>
+        </record>
+        <record id="action_product_segment" model="ir.actions.act_window">
+            <field name="name">Segments</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">is.product.segment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Famile -->
+        <record id="is_product_family_view_tree" model="ir.ui.view">
+            <field name="name">is.product.family.view.tree</field>
+            <field name="model">is.product.famille</field>
+            <field name="arch" type="xml">
+                <tree string="Familles">
+                    <field name="name" />
+                    <field name="segment_id" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_product_family_view_form" model="ir.ui.view">
+            <field name="name">is.product.family.view.form</field>
+            <field name="model">is.product.famille</field>
+            <field name="arch" type="xml">
+                <form string="Familles">
+                  <group>
+                    <field name="name" />
+                    <field name="segment_id" />
+                  </group>
+                  <group>
+                    <field name="sub_family_line" >
+                        <tree string="Sous Familles" editable="bottom">
+                            <field name="name" />
+                            <field name="family_id" required="0" invisible="1" />
+                        </tree>
+                    </field>
+                    <field name="description" placeholder="Commentaire ..."/>  
+                  </group>                
+                </form>
+            </field>
+        </record>
+        <record id="action_product_family" model="ir.actions.act_window">
+            <field name="name">Familles</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">is.product.famille</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Sous familles -->
+        <record id="is_product_subfamily_view_tree" model="ir.ui.view">
+            <field name="name">is.product.subfamily.view.tree</field>
+            <field name="model">is.product.sous.famille</field>
+            <field name="arch" type="xml">
+                <tree string="Sous familles">
+                    <field name="name" />
+                    <field name="family_id" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_product_subfamily_view_form" model="ir.ui.view">
+            <field name="name">is.product.subfamily.view.form</field>
+            <field name="model">is.product.sous.famille</field>
+            <field name="arch" type="xml">
+                <form string="Sous familles">
+                  <group>
+                    <field name="name" />
+                    <field name="family_id" />
+                  </group>
+                    <field name="description" placeholder="Commentaire ..."/>                   
+                </form>
+            </field>
+        </record>
+        <record id="action_product_subfamily" model="ir.actions.act_window">
+            <field name="name">Sous familles</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">is.product.sous.famille</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Catégorie -->
+        <record model="ir.ui.view" id="is_category_form_view">
+            <field name="name">is_category_form_view</field>
+            <field name="model">is.category</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Form" version="7.0">  
+                    <sheet>
+                        <group col="2" colspan="4">
+                            <field name="name"/> 
+                            <field name="commentaire"/> 
+                            <field name="fantome"/> 
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="is_category_tree_view">
+            <field name="name">is_category_tree_view</field>
+            <field name="model">is.category</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="tree" editable="top">
+                    <field name="name"/>
+                    <field name="commentaire"/> 
+                    <field name="fantome"/> 
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="is_category_filter_view" >
+            <field name="name">is_category_filter_view</field>
+            <field name="model">is.category</field>
+            <field name="arch" type="xml">
+                <search string="Recherche">
+                    <field name="name"/>
+                    <field name="commentaire"/>
+                    <field name="fantome"/>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="is_category_action">
+            <field name="name">Catégorie</field>
+            <field name="res_model">is.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Gestionnaire -->
+        <record model="ir.ui.view" id="is_gestionnaire_form_view">
+          <field name="name">is_gestionnaire_form_view</field>
+          <field name="model">is.gestionnaire</field>
+          <field name="type">form</field>
+          <field name="arch" type="xml">
+            <form string="Form" version="7.0">  
+            <sheet>
+              <group col="2" colspan="4">
+                <field name="name"/> 
+                <field name="commentaire"/> 
+              </group>
+            </sheet>
+            </form>
+          </field>
+        </record>
+        <record model="ir.ui.view" id="is_gestionnaire_tree_view">
+          <field name="name">is_gestionnaire_tree_view</field>
+          <field name="model">is.gestionnaire</field>
+          <field name="type">tree</field>
+           <field name="arch" type="xml">
+            <tree string="tree">
+              <field name="name"/>
+              <field name="commentaire"/> 
+            </tree>
+          </field>
+        </record>
+        <record model="ir.ui.view" id="is_gestionnaire_filter_view" >
+          <field name="name">is_gestionnaire_filter_view</field>
+          <field name="model">is.gestionnaire</field>
+          <field name="arch" type="xml">
+          <search string="Recherche">
+            <field name="name"        filter_domain="[('name', 'ilike', self)]"/>
+            <field name="commentaire" filter_domain="[('commentaire', 'ilike', self)]"/>
+          </search>
+          </field>
+        </record>
+        <record model="ir.actions.act_window" id="is_gestionnaire_action">
+          <field name="name">Gestionnaires</field>
+          <field name="res_model">is.gestionnaire</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Section analytique -->
+        <record id="is_section_analytique_tree_view" model="ir.ui.view">
+            <field name="name">is_section_analytique_tree_view</field>
+            <field name="model">is.section.analytique</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_section_analytique_action" model="ir.actions.act_window">
+            <field name="name">Section analytique</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">is.section.analytique</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <!-- Responsable budget -->
+        <record id="is_budget_responsable_tree_view" model="ir.ui.view">
+            <field name="name">is_budget_responsable_tree_view</field>
+            <field name="model">is.budget.responsable</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_budget_responsable_action" model="ir.actions.act_window">
+            <field name="name">Responsable budget</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">is.budget.responsable</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+
+        <!-- Nature budget -->
+        <record id="is_budget_nature_tree_view" model="ir.ui.view">
+            <field name="name">is_budget_nature_tree_view</field>
+            <field name="model">is.budget.nature</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_budget_nature_action" model="ir.actions.act_window">
+            <field name="name">Responsable nature</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">is.budget.nature</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+
+        <!-- Masquer les champs -->
+        <!--
+        <record id="is_product_champs_view_tree" model="ir.ui.view">
+            <field name="name">is.product.champs.view.tree</field>
+            <field name="model">is.product.view</field>
+            <field name="arch" type="xml">
+                <tree string="Masquer les champs">
+                    <field name="fields_id" />
+                    <field name="segment_id" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_product_champs_view_form" model="ir.ui.view">
+            <field name="name">is.product.champs.view.form</field>
+            <field name="model">is.product.view</field>
+            <field name="arch" type="xml">
+                <form string="Masquer les champs">
+                  <group>
+                    <field name="fields_id" />
+                    <field name="segment_id" />
+                  </group>
+                </form>
+            </field>
+        </record>
+        <record id="action_product_champs" model="ir.actions.act_window">
+            <field name="name">Masquer champs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">is.product.view</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem
+              id="menu_action_product_champs" 
+              parent="base.menu_product"
+              sequence="45"
+              action="action_product_champs" 
+              groups="group_is_pg_manager" />
+        -->
+
+
+        <!-- Fiche Article -->
+        <record id="product_template_form_view" model="ir.ui.view">
+            <field name="name">product_template_form_view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='image_medium']" position="before">
+                    <img src='/is_pg_product/static/src/img/logo_rs.png' attrs="{'invisible': [('is_soumise_regl', '!=', 'SR')]}" style="height:64px" />
+                </xpath>
+                <xpath expr="//field[@name='image_medium']" position="before">
+                    <img src='/is_pg_product/static/src/img/logo_r.png'  attrs="{'invisible': [('is_soumise_regl', '!=', 'R')]}"  style="height:64px" />
+                </xpath>
+                <xpath expr="//field[@name='active']" position="after">
+                    <field name="is_ref_plan_vsb" invisible="1"/>
+                    <field name="is_ref_plan" attrs="{'invisible': [('is_ref_plan_vsb', '=', True)]}"/>
+                    <field name="is_ind_plan_vsb" invisible="1"/>
+                    <field name="is_ind_plan" attrs="{'invisible': [('is_ind_plan_vsb', '=', True)]}"/>
+                    <field name="is_nomenclature_douaniere_vsb" invisible="1"/>
+                    <field name="is_nomenclature_douaniere" attrs="{'invisible': [('is_nomenclature_douaniere_vsb', '=', True)]}"/>
+                    <field name="is_couleur_vsb" invisible="1"/>
+                    <field name="is_couleur" attrs="{'invisible': [('is_couleur_vsb', '=', True)]}"/>
+                    <field name="is_produit_perissable_vsb" invisible="1"/>
+                    <field name="is_produit_perissable" attrs="{'invisible': [('is_produit_perissable_vsb', '=', True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='uom_id']" position="after">
+                    <field name="is_mold_id_vsb" invisible="1"/>
+                    <field name="is_mold_id" attrs="{'invisible': [('is_mold_id_vsb', '=', True)]}"/>
+                    <field name="is_dossierf_id_vsb" invisible="1"/>
+                    <field name="is_dossierf_id" attrs="{'invisible': [('is_dossierf_id_vsb', '=', True)]}"/>
+                    <field name="is_client_id_vsb" invisible="1"/>
+                    <field name="is_client_id" domain="[('customer','=',True),('is_company','=',True)]" attrs="{'invisible': [('is_client_id_vsb', '=', True)]}" />
+                    <field name="is_ref_client_vsb" invisible="1"/>
+                    <field name="is_ref_client" attrs="{'invisible': [('is_ref_client_vsb', '=', True)]}"/>
+                    <field name="is_ref_fournisseur_vsb" invisible="1"/>
+                    <field name="is_ref_fournisseur" attrs="{'invisible': [('is_ref_fournisseur_vsb', '=', True)]}"/>
+                    <field name="is_origine_produit_id_vsb" invisible="1"/>
+                    <field name="is_origine_produit_id" attrs="{'invisible': [('is_origine_produit_id_vsb', '=', True)]}"/>
+                </xpath> 
+                <xpath expr="//div[@class='oe_title']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>             
+               <xpath expr="//page[@string='Sales']" position="after">
+                    <page string="Fabrication">
+                        <group colspan="4">
+                              <group>
+                                  <field name="is_stock_secu_vsb" invisible="1"/>
+                                <field name="is_stock_secu" attrs="{'invisible': [('is_stock_secu_vsb', '=', True)]}"/>
+                                <field name="lot_mini_vsb" invisible="1"/>
+                                <field name="lot_mini" attrs="{'invisible': [('lot_mini_vsb', '=', True)]}"/>
+                                <field name="multiple_vsb" invisible="1"/>
+                                <field name="multiple" attrs="{'invisible': [('multiple_vsb', '=', True)]}"/>
+                                <field name="temps_realisation_vsb" invisible="1"/>
+                                <field name="temps_realisation" attrs="{'invisible': [('temps_realisation_vsb', '=', True)]}"/>
+                                <field name="is_perte_vsb" invisible="1"/>
+                                <field name="is_perte" attrs="{'invisible': [('is_perte_vsb', '=', True)]}"/>
+                                <field name="is_destockage_vsb" invisible="1"/>
+                                <field name="is_destockage" attrs="{'invisible': [('is_destockage_vsb', '=', True)]}"/>
+                              </group>
+                              <group>
+                                  <field name="is_soumise_regl_vsb" invisible="1"/>
+                                <field name="is_soumise_regl" attrs="{'invisible': [('is_soumise_regl_vsb', '=', True)]}"/>
+                                <field name="is_livree_aqp_vsb" invisible="1"/>
+                                <field name="is_livree_aqp" attrs="{'invisible': [('is_livree_aqp_vsb', '=', True)]}"/>
+                                <field name="is_droite_grauche_vsb" invisible="1"/>
+                                <field name="is_droite_grauche" attrs="{'invisible': [('is_droite_grauche_vsb', '=', True)]}"/>
+                              </group>
+                        </group>
+                    </page>
+                </xpath>
+                <group name="sale_condition" position="inside">
+                    <field name="delai_cq_vsb" invisible="1"/>
+                    <label for="delai_cq" attrs="{'invisible': [('delai_cq_vsb', '=', True)]}"/>
+                    <div attrs="{'invisible': [('delai_cq_vsb', '=', True)]}">
+                        <field name="delai_cq" class="oe_inline"/> jours
+                    </div>
+                </group>
+                <xpath expr="//field[@name='name']" position="replace" />
+                <xpath expr="//field[@name='image_medium']" position="after">
+                    <group>
+                        <field name="is_code"/>
+                        <field name="name" string="Désignation"/>
+                        <field name="segment_id" on_change="onchange_segment_id(segment_id)"/>
+                        <field name="family_id" context="{'default_segment_id':segment_id}" on_change="onchange_family_id(family_id)"/>
+                        <field name="sub_family_id" context="{'default_family_id':family_id}" />
+                    </group>
+                </xpath> 
+                <notebook position="before">
+                    <group colspan="4">
+                        <group>
+                            <field name="is_category_id_vsb" invisible="1"/>
+                            <field name="is_category_id" attrs="{'invisible': [('is_category_id_vsb', '=', True)]}"/>
+                            <field name="is_gestionnaire_id_vsb" invisible="1"/>
+                            <field name="is_gestionnaire_id" attrs="{'invisible': [('is_gestionnaire_id_vsb', '=', True)]}"/>
+                        </group>
+                        <group>
+                            <field name="sale_ok"/>
+                            <field name="purchase_ok"/>
+                        </group>
+                    </group>
+                </notebook>
+                <xpath expr="//group[@name='sale_condition']" position="after">
+                      <group string='Livraison'>
+                        <field name="lot_livraison_vsb"      invisible="1"/>
+                        <field name="lot_livraison"          attrs="{'invisible': [('lot_livraison_vsb', '=', True)]}"/>
+                        <field name="multiple_livraison_vsb" invisible="1"/>
+                        <field name="multiple_livraison"     attrs="{'invisible': [('multiple_livraison_vsb', '=', True)]}"/>
+
+
+                      </group>
+                </xpath>
+                <xpath expr="//div[@name='options']" position="attributes" >
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='taxes_id']" position="after">
+                    <field name="is_section_analytique_id_vsb" invisible="1"/>
+                    <field name="is_section_analytique_id"     attrs="{'invisible': [('is_section_analytique_id_vsb', '=', True)]}"/>
+                    <field name="is_budget_nature_id_vsb"      invisible="1"/>
+                    <field name="is_budget_nature_id"          attrs="{'invisible': [('is_budget_nature_id_vsb', '=', True)]}"/>
+                    <field name="is_budget_responsable_id_vsb" invisible="1"/>
+                    <field name="is_budget_responsable_id"     attrs="{'invisible': [('is_budget_responsable_id_vsb', '=', True)]}"/>
+                    <field name="is_budget_fv_vsb"             invisible="1"/>
+                    <field name="is_budget_fv"                 attrs="{'invisible': [('is_budget_fv_vsb', '=', True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='standard_price']" position="replace" >
+                    <div invisible="1">
+                        <field name="standard_price"/>
+                    </div>
+                </xpath>
+
+                <xpath expr="//field[@name='list_price']" position="attributes" >
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+<!--
+
+                                <field name="multiple_vsb" invisible="1"/>
+                                <field name="multiple" attrs="{'invisible': [('multiple_vsb', '=', True)]}"/>
+-->
+
+
+        <record id="is_product_template_only_form_view" model="ir.ui.view">
+            <field name="name">is_product_template_only_form_view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='variants']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='ean13']"        position="replace" />
+                <xpath expr="//field[@name='default_code']" position="replace" />
+
+            </field>
+        </record> 
+
+
+        <record id="is_view_template_property_form" model="ir.ui.view">
+            <field name="name">is_product_template_only_form_view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.view_template_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='lot']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>             
+            </field>
+        </record> 
+
+
+        <record id="is_product_template_form_view_procurement_button" model="ir.ui.view">
+            <field name="name">is_product_template_form_view_procurement_button</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_view_orderpoints']" position="replace" />
+                <xpath expr="//button[@name='action_view_routes']" position="replace" />
+            </field>
+        </record> 
+
+
+        <!-- tree -->
+        <record model="ir.ui.view" id="is_product_tree_view">
+            <field name="name">is_product_tree_view</field>
+            <field name="model">product.template</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="tree">
+                    <field name="is_code"/>
+                    <field name="name" string="Désignation"/>
+                    <field name="segment_id"/>
+                    <field name="family_id"/>
+                    <field name="is_category_id"/>
+                    <field name="is_gestionnaire_id"/>
+                    <field name="is_mold_id"/>
+                    <field name="is_dossierf_id"/>
+                    <field name="is_client_id"  />
+                    <field name="is_ref_client"/>
+                    <field name="is_ref_plan"/>
+                    <field name="is_ind_plan"/>
+                    <field name="uom_id"/>
+                    <field name="qty_available" string="Stock"  digits="(14, 0)"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- search -->
+        <record model="ir.ui.view" id="is_product_search_view" >
+            <field name="name">is_product_search_view</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <search string="Recherche">
+                    <field name="is_code"/>
+                    <field name="name"/>
+                    <field name="segment_id"/>
+                    <field name="family_id"/>
+                    <field name="is_category_id"/>
+                    <field name="is_gestionnaire_id"/>
+                    <field name="is_mold_id"/>
+                    <field name="is_dossierf_id"/>
+                    <field name="is_client_id"  />
+                    <field name="is_ref_client"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- action -->
+        <record model="ir.actions.act_window" id="is_product_action">
+            <field name="name">Articles</field>
+            <field name="res_model">product.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="product.product_template_only_form_view"/>
+            <field name="search_view_id" ref="is_product_search_view"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="is_product_action_tree">
+            <field name="act_window_id" ref="is_product_action"/>
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="is_product_tree_view"/>
+        </record>
+
+    </data>
+</openerp>

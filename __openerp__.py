@@ -18,9 +18,7 @@ Ameliorer la fiche article
     'data': [
         'security/is_pg_security.xml',
         'security/ir.model.access.csv',
-        'is_product_view.xml',
-        'is_category_view.xml',
-        'is_gestionnaire_view.xml',
+        'product_view.xml',
     ],
     'demo': [],
     'test': [],
