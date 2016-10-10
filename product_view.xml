@@ -486,19 +486,26 @@
                     </div>
                 </xpath>
 
+
+                <xpath expr="//field[@name='volume']" position="replace" >
+                    <field name="volume_vsb" invisible="1"/>
+                    <field name="volume" attrs="{'invisible': [('volume_vsb', '=', True)]}" digits="(14, 4)"/>
+                </xpath>
+                <xpath expr="//field[@name='weight']" position="replace" >
+                    <field name="weight_vsb" invisible="1"/>
+                    <field name="weight" attrs="{'invisible': [('weight_vsb', '=', True)]}" digits="(14, 4)"/>
+                </xpath>
+                <xpath expr="//field[@name='weight_net']" position="replace" >
+                    <field name="weight_net_vsb" invisible="1"/>
+                    <field name="weight_net" attrs="{'invisible': [('weight_net_vsb', '=', True)]}" digits="(14, 4)"/>
+                </xpath>
+
                 <xpath expr="//field[@name='list_price']" position="attributes" >
                     <attribute name="invisible">1</attribute>
+
                 </xpath>
             </field>
         </record>
-
-
-<!--
-
-                                <field name="multiple_vsb" invisible="1"/>
-                                <field name="multiple" attrs="{'invisible': [('multiple_vsb', '=', True)]}"/>
--->
-
 
         <record id="is_product_template_only_form_view" model="ir.ui.view">
             <field name="name">is_product_template_only_form_view</field>

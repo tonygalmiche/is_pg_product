@@ -246,6 +246,10 @@ class product_template(models.Model):
     is_budget_fv                  = fields.Selection([('F','Fixe'),('V','Variable')], "Budget Fixe ou Variable")
     is_budget_fv_vsb              = fields.Boolean('Budget Fixe ou Variable', store=False, compute='_compute')
 
+
+    volume_vsb                    = fields.Boolean('Volume'    , store=False, compute='_compute')
+    weight_vsb                    = fields.Boolean('Poids brut', store=False, compute='_compute')
+    weight_net_vsb                = fields.Boolean('Poids net' , store=False, compute='_compute')
     
     _defaults = {        
         'list_price': 0.0,
