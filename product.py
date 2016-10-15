@@ -131,6 +131,22 @@ class is_product_client(models.Model):
     multiple_livraison = fields.Float('Multiple de livraison')
 
 
+class is_type_etiquette(models.Model):
+    _name='is.type.etiquette'
+    _order='name'
+
+    name             = fields.Char("Type d'étiquette"     , required=True)
+    code_fournisseur = fields.Char('Code Fournisseur'     , required=True)
+    adresse          = fields.Char('Adresse'              , required=True)
+    format_etiquette = fields.Selection([ 
+        ('DD','DD'),
+        ('EC','EC'),
+        ('MGI','MGI'),
+        ('PG','PG'),
+        ('RE','RE'),
+        ('VS','VS'),
+    ], "Format de l'étiquette", required=True)
+
 
 
 class product_template(models.Model):
@@ -213,6 +229,9 @@ class product_template(models.Model):
 
     is_droite_grauche             = fields.Selection([('D','D'),('G','G')], "Pièce droite/gauche")
     is_droite_grauche_vsb         = fields.Boolean('Pièce droite/gauche', store=False, compute='_compute')
+
+    is_type_etiquette_id          = fields.Many2one('is.type.etiquette', 'Type étiquette GALIA')
+    is_type_etiquette_id_vsb      = fields.Boolean('Type étiquette GALIA', store=False, compute='_compute')
 
     is_couleur                    = fields.Char('Couleur / Type matière', help="Mettre la couleur pour les matières et la matière pour les produits fabriqués")
     is_couleur_vsb                = fields.Boolean('Couleur / Type matière', store=False, compute='_compute')

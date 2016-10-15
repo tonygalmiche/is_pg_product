@@ -317,44 +317,45 @@
         </record>
 
 
-        <!-- Masquer les champs -->
-        <!--
-        <record id="is_product_champs_view_tree" model="ir.ui.view">
-            <field name="name">is.product.champs.view.tree</field>
-            <field name="model">is.product.view</field>
+        <!-- Type d'étiquette -->
+        <record id="is_type_etiquette_tree_view" model="ir.ui.view">
+            <field name="name">is_type_etiquette_tree_view</field>
+            <field name="model">is.type.etiquette</field>
             <field name="arch" type="xml">
-                <tree string="Masquer les champs">
-                    <field name="fields_id" />
-                    <field name="segment_id" />
+                <tree editable="top">
+                    <field name="name" />
+                    <field name="code_fournisseur" />
+                    <field name="adresse" />
+                    <field name="format_etiquette" />
                 </tree>
             </field>
         </record>
-        <record id="is_product_champs_view_form" model="ir.ui.view">
-            <field name="name">is.product.champs.view.form</field>
-            <field name="model">is.product.view</field>
+        <record id="is_type_etiquette_form_view" model="ir.ui.view">
+            <field name="name">is_type_etiquette_form_view</field>
+            <field name="model">is.type.etiquette</field>
             <field name="arch" type="xml">
-                <form string="Masquer les champs">
-                  <group>
-                    <field name="fields_id" />
-                    <field name="segment_id" />
-                  </group>
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" />
+                                <field name="code_fournisseur" />
+                                <field name="adresse" />
+                                <field name="format_etiquette" />
+                            </group>
+                        </group>
+                    </sheet>
                 </form>
             </field>
         </record>
-        <record id="action_product_champs" model="ir.actions.act_window">
-            <field name="name">Masquer champs</field>
+        <record id="is_type_etiquette_action" model="ir.actions.act_window">
+            <field name="name">Type d'étiquette</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">is.product.view</field>
+            <field name="res_model">is.type.etiquette</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree</field>
         </record>
-        <menuitem
-              id="menu_action_product_champs" 
-              parent="base.menu_product"
-              sequence="45"
-              action="action_product_champs" 
-              groups="group_is_pg_manager" />
-        -->
+
 
 
         <!-- Fiche Article -->
@@ -426,6 +427,10 @@
                                 <field name="is_livree_aqp" attrs="{'invisible': [('is_livree_aqp_vsb', '=', True)]}"/>
                                 <field name="is_droite_grauche_vsb" invisible="1"/>
                                 <field name="is_droite_grauche" attrs="{'invisible': [('is_droite_grauche_vsb', '=', True)]}"/>
+
+                                <field name="is_type_etiquette_id_vsb" invisible="1"/>
+                                <field name="is_type_etiquette_id" attrs="{'invisible': [('is_type_etiquette_id_vsb', '=', True)]}"/>
+
                               </group>
                         </group>
 
