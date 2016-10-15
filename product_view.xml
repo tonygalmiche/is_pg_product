@@ -402,7 +402,11 @@
                     <page string="Fabrication">
                         <group colspan="4">
                               <group>
-                                  <field name="is_stock_secu_vsb" invisible="1"/>
+
+                                <field name="delai_cq_vsb" invisible="1"/>
+                                <field name="delai_cq" attrs="{'invisible': [('delai_cq_vsb', '=', True)]}"/>
+
+                                <field name="is_stock_secu_vsb" invisible="1"/>
                                 <field name="is_stock_secu" attrs="{'invisible': [('is_stock_secu_vsb', '=', True)]}"/>
                                 <field name="lot_mini_vsb" invisible="1"/>
                                 <field name="lot_mini" attrs="{'invisible': [('lot_mini_vsb', '=', True)]}"/>
@@ -412,11 +416,11 @@
                                 <field name="temps_realisation" attrs="{'invisible': [('temps_realisation_vsb', '=', True)]}"/>
                                 <field name="is_perte_vsb" invisible="1"/>
                                 <field name="is_perte" attrs="{'invisible': [('is_perte_vsb', '=', True)]}"/>
-                                <field name="is_destockage_vsb" invisible="1"/>
-                                <field name="is_destockage" attrs="{'invisible': [('is_destockage_vsb', '=', True)]}"/>
                               </group>
                               <group>
-                                  <field name="is_soumise_regl_vsb" invisible="1"/>
+                                <field name="is_destockage_vsb" invisible="1"/>
+                                <field name="is_destockage" attrs="{'invisible': [('is_destockage_vsb', '=', True)]}"/>
+                                <field name="is_soumise_regl_vsb" invisible="1"/>
                                 <field name="is_soumise_regl" attrs="{'invisible': [('is_soumise_regl_vsb', '=', True)]}"/>
                                 <field name="is_livree_aqp_vsb" invisible="1"/>
                                 <field name="is_livree_aqp" attrs="{'invisible': [('is_livree_aqp_vsb', '=', True)]}"/>
@@ -424,15 +428,29 @@
                                 <field name="is_droite_grauche" attrs="{'invisible': [('is_droite_grauche_vsb', '=', True)]}"/>
                               </group>
                         </group>
+
+
+
+
                     </page>
                 </xpath>
-                <group name="sale_condition" position="inside">
+
+                <xpath expr="//group[@name='sale_condition']" position="attributes" >
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <!--
+                <group name="sale_condition" position="after">
                     <field name="delai_cq_vsb" invisible="1"/>
                     <label for="delai_cq" attrs="{'invisible': [('delai_cq_vsb', '=', True)]}"/>
                     <div attrs="{'invisible': [('delai_cq_vsb', '=', True)]}">
                         <field name="delai_cq" class="oe_inline"/> jours
                     </div>
                 </group>
+                -->
+
+
+
                 <xpath expr="//field[@name='name']" position="replace" />
                 <xpath expr="//field[@name='image_medium']" position="after">
                     <group>
@@ -457,16 +475,32 @@
                         </group>
                     </group>
                 </notebook>
-                <xpath expr="//group[@name='sale_condition']" position="after">
-                      <group string='Livraison'>
-                        <field name="lot_livraison_vsb"      invisible="1"/>
-                        <field name="lot_livraison"          attrs="{'invisible': [('lot_livraison_vsb', '=', True)]}"/>
-                        <field name="multiple_livraison_vsb" invisible="1"/>
-                        <field name="multiple_livraison"     attrs="{'invisible': [('multiple_livraison_vsb', '=', True)]}"/>
+                <xpath expr="//group[@name='sale']" position="after">
+                    <group>
+                        <group string='Livraison'>
+                            <field name="lot_livraison_vsb"      invisible="1"/>
+                            <field name="lot_livraison"          attrs="{'invisible': [('lot_livraison_vsb', '=', True)]}"/>
+                            <field name="multiple_livraison_vsb" invisible="1"/>
+                            <field name="multiple_livraison"     attrs="{'invisible': [('multiple_livraison_vsb', '=', True)]}"/>
+                        </group>
+                    </group>
 
+                    <group>
+                        <field name="is_client_ids_vsb" invisible="1"/>
+                        <field name="is_client_ids" nolabel="1" attrs="{'invisible': [('is_client_ids_vsb', '=', True)]}">
+                            <tree editable="bottom"  create="true">
+                                <field name="client_id" widget="many2one_clickable"/>
+                                <field name="client_defaut"/>
+                                <field name="lot_livraison"/>
+                                <field name="multiple_livraison"/>
+                            </tree>
+                        </field>
+                    </group>
 
-                      </group>
                 </xpath>
+
+
+
                 <xpath expr="//div[@name='options']" position="attributes" >
                     <attribute name="invisible">1</attribute>
                 </xpath>

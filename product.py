@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 
-#from openerp.osv import osv, fields, expression
-
+import re
+from math import *
 from openerp.osv import expression
 from openerp import models,fields,api
 from openerp.tools.translate import _
-
 
 
 class is_config_champ(models.Model):
@@ -18,7 +17,6 @@ class is_config_champ(models.Model):
     _sql_constraints = [
         ('name_uniq'       , 'unique(name)'       , u"Ce formulaire existe déja !"),
     ]
-
 
     @api.multi
     def copy(self,vals):
@@ -122,6 +120,19 @@ class is_product_sous_famille(models.Model):
 
 
 
+class is_product_client(models.Model):
+    _name='is.product.client'
+    _order='product_id'
+
+    product_id         = fields.Many2one('product.template', 'Article', required=True, ondelete='cascade')
+    client_id          = fields.Many2one('res.partner', 'Client', domain=[('customer','=',True),('is_company','=',True)], required=True)
+    client_defaut      = fields.Boolean('Client par défaut', default=True)
+    lot_livraison      = fields.Float('Lot de livraison')
+    multiple_livraison = fields.Float('Multiple de livraison')
+
+
+
+
 class product_template(models.Model):
     _inherit = 'product.template'
     _order='is_code'
@@ -171,8 +182,16 @@ class product_template(models.Model):
     is_ref_client                 = fields.Char('Référence client')
     is_ref_client_vsb             = fields.Boolean('Référence client', store=False, compute='_compute')
 
+
+
     is_client_id                  = fields.Many2one('res.partner', 'Client par défaut', help="Ce champ est utilisé pour la liste des stocks par client et pour les étiquettes Galia")
     is_client_id_vsb              = fields.Boolean('Client par défaut', store=False, compute='_compute')
+
+    is_client_ids                 = fields.One2many('is.product.client', 'product_id', u"Clients")
+    is_client_ids_vsb             = fields.Boolean('Clients', store=False, compute='_compute')
+
+
+
 
     is_ref_plan                   = fields.Char('Référence plan')
     is_ref_plan_vsb               = fields.Boolean('Référence plan', store=False, compute='_compute')
@@ -320,9 +339,42 @@ class product_template(models.Model):
             'value': val,
             'domain': {'sub_family_id': domain}
         }
-    
 
 
+    @api.multi
+    def get_lot_livraison(self, product, client):
+        lot_livraison=1
+        product_client=self.env['is.product.client'].search([
+            ('client_id'    , '=', client.id),
+            ('product_id'   , '=', product.id),
+            ('client_defaut', '=', True),
+        ])
+        if len(product_client)>0:
+            lot_livraison=product_client.lot_livraison
+        return lot_livraison
+
+
+    @api.multi
+    def get_arrondi_lot_livraison(self, product_id, pricelist_id, qty):
+        pricelist=self.env['product.pricelist'].browse(pricelist_id)
+        if len(pricelist)>0:
+            product=self.env['product.product'].browse(product_id)
+            product_client=self.env['is.product.client'].search([
+                ('client_id'    , '=', pricelist.partner_id.id),
+                ('product_id'   , '=', product.product_tmpl_id.id),
+                ('client_defaut', '=', True),
+            ])
+            if len(product_client)>0:
+                lot      = product_client.lot_livraison
+                multiple = product_client.multiple_livraison
+                if multiple==0:
+                    multiple=1
+                if qty<lot:
+                    qty=lot
+                else:
+                    delta=qty-lot
+                    qty=lot+multiple*ceil(delta/multiple)
+        return qty
 
 
 

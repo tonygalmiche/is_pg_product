@@ -12,4 +12,4 @@ access_gestionnaire_donnees_techniques,access_gestionnaire_donnees_techniques,mo
 access_is_config_champ,access_is_config_champ,model_is_config_champ,group_is_pg_manager,1,1,1,1
 access_is_config_champ_line,access_is_config_champ_line,model_is_config_champ_line,group_is_pg_manager,1,1,1,1
 
-
+access_is_product_client,access_is_product_client,model_is_product_client,group_is_pg_manager,1,1,1,1
