@@ -366,7 +366,6 @@ class product_template(models.Model):
         product_client=self.env['is.product.client'].search([
             ('client_id'    , '=', client.id),
             ('product_id'   , '=', product.id),
-            ('client_defaut', '=', True),
         ])
         if len(product_client)>0:
             lot_livraison=product_client.lot_livraison
@@ -374,25 +373,25 @@ class product_template(models.Model):
 
 
     @api.multi
-    def get_arrondi_lot_livraison(self, product_id, pricelist_id, qty):
-        pricelist=self.env['product.pricelist'].browse(pricelist_id)
-        if len(pricelist)>0:
-            product=self.env['product.product'].browse(product_id)
-            product_client=self.env['is.product.client'].search([
-                ('client_id'    , '=', pricelist.partner_id.id),
-                ('product_id'   , '=', product.product_tmpl_id.id),
-                ('client_defaut', '=', True),
-            ])
-            if len(product_client)>0:
-                lot      = product_client.lot_livraison
-                multiple = product_client.multiple_livraison
-                if multiple==0:
-                    multiple=1
-                if qty<lot:
-                    qty=lot
-                else:
-                    delta=qty-lot
-                    qty=lot+multiple*ceil(delta/multiple)
+    def get_arrondi_lot_livraison(self, product_id, partner_id, qty):
+        #pricelist=self.env['product.pricelist'].browse(pricelist_id)
+        #if len(pricelist)>0:
+        partner=self.env['res.partner'].browse(partner_id)
+        product=self.env['product.product'].browse(product_id)
+        product_client=self.env['is.product.client'].search([
+            ('client_id'    , '=', partner.is_adr_facturation.id),
+            ('product_id'   , '=', product.product_tmpl_id.id),
+        ])
+        if len(product_client)>0:
+            lot      = product_client.lot_livraison
+            multiple = product_client.multiple_livraison
+            if multiple==0:
+                multiple=1
+            if qty<lot:
+                qty=lot
+            else:
+                delta=qty-lot
+                qty=lot+multiple*ceil(delta/multiple)
         return qty
 
 
