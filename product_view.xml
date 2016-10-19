@@ -94,7 +94,7 @@
         </record>
 
 
-        <!-- Famile -->
+        <!-- Famille -->
         <record id="is_product_family_view_tree" model="ir.ui.view">
             <field name="name">is.product.family.view.tree</field>
             <field name="model">is.product.famille</field>
@@ -180,6 +180,7 @@
                             <field name="name"/> 
                             <field name="commentaire"/> 
                             <field name="fantome"/> 
+                            <field name="calcul_cout"/> 
                         </group>
                     </sheet>
                 </form>
@@ -194,6 +195,7 @@
                     <field name="name"/>
                     <field name="commentaire"/> 
                     <field name="fantome"/> 
+                    <field name="calcul_cout"/> 
                 </tree>
             </field>
         </record>
@@ -605,6 +607,7 @@
                     <field name="is_ind_plan"/>
                     <field name="uom_id"/>
                     <field name="qty_available" string="Stock"  digits="(14, 0)"/>
+                    <field name="route_ids"/>
                 </tree>
             </field>
         </record>

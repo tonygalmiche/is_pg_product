@@ -66,6 +66,23 @@ class is_category(models.Model):
     commentaire  = fields.Char('Intitulé')
     fantome      = fields.Boolean('Article fantôme', \
         help="Si cette case est cochée, les articles de cette catégorie passeront en fantôme dans les composants de la nomenclature")
+    calcul_cout  = fields.Boolean('Calculer le coût', \
+        help="Si cette case est cochée, le coût sera calculé pour les articles de cette catégorie")
+
+    _defaults = {
+        'calcul_cout': True,
+    }
+
+
+    @api.multi
+    def _calcul_cout(self):
+        cats=self.search([('calcul_cout', '=', True)])
+        res=[]
+        for cat in cats:
+            res.append(cat.id)
+        return res
+
+
 
 
 class is_gestionnaire(models.Model):
