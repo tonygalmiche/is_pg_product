@@ -393,10 +393,10 @@ class product_template(models.Model):
     def get_arrondi_lot_livraison(self, product_id, partner_id, qty):
         #pricelist=self.env['product.pricelist'].browse(pricelist_id)
         #if len(pricelist)>0:
-        partner=self.env['res.partner'].browse(partner_id)
+        #partner=self.env['res.partner'].browse(partner_id)
         product=self.env['product.product'].browse(product_id)
         product_client=self.env['is.product.client'].search([
-            ('client_id'    , '=', partner.is_adr_facturation.id),
+            ('client_id'    , '=', partner_id),
             ('product_id'   , '=', product.product_tmpl_id.id),
         ])
         if len(product_client)>0:
