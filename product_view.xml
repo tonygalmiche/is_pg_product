@@ -389,8 +389,6 @@
                     <field name="is_mold_id" attrs="{'invisible': [('is_mold_id_vsb', '=', True)]}"/>
                     <field name="is_dossierf_id_vsb" invisible="1"/>
                     <field name="is_dossierf_id" attrs="{'invisible': [('is_dossierf_id_vsb', '=', True)]}"/>
-                    <field name="is_client_id_vsb" invisible="1"/>
-                    <field name="is_client_id" domain="[('customer','=',True),('is_company','=',True)]" attrs="{'invisible': [('is_client_id_vsb', '=', True)]}" />
                     <field name="is_ref_client_vsb" invisible="1"/>
                     <field name="is_ref_client" attrs="{'invisible': [('is_ref_client_vsb', '=', True)]}"/>
                     <field name="is_ref_fournisseur_vsb" invisible="1"/>
@@ -401,6 +399,13 @@
                 <xpath expr="//div[@class='oe_title']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>             
+
+                <xpath expr="//page[@name='sales']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>             
+
+
+
                <xpath expr="//page[@string='Sales']" position="after">
                     <page string="Fabrication">
                         <group colspan="4">
@@ -419,6 +424,7 @@
                                 <field name="temps_realisation" attrs="{'invisible': [('temps_realisation_vsb', '=', True)]}"/>
                                 <field name="is_perte_vsb" invisible="1"/>
                                 <field name="is_perte" attrs="{'invisible': [('is_perte_vsb', '=', True)]}"/>
+
                               </group>
                               <group>
                                 <field name="is_destockage_vsb" invisible="1"/>
@@ -432,12 +438,24 @@
 
                                 <field name="is_type_etiquette_id_vsb" invisible="1"/>
                                 <field name="is_type_etiquette_id" attrs="{'invisible': [('is_type_etiquette_id_vsb', '=', True)]}"/>
-
                               </group>
                         </group>
 
-
-
+                        <group>
+                            <field name="is_client_id_vsb" invisible="1"/>
+                            <field name="is_client_id" domain="[('customer','=',True),('is_company','=',True)]" attrs="{'invisible': [('is_client_id_vsb', '=', True)]}" />
+                        </group>
+                        <group>
+                            <field name="is_client_ids_vsb" invisible="1"/>
+                            <field name="is_client_ids" nolabel="1" attrs="{'invisible': [('is_client_ids_vsb', '=', True)]}">
+                                <tree editable="bottom"  create="true">
+                                    <field name="client_id" widget="many2one_clickable"/>
+                                    <field name="client_defaut"/>
+                                    <field name="lot_livraison"/>
+                                    <field name="multiple_livraison"/>
+                                </tree>
+                            </field>
+                        </group>
 
                     </page>
                 </xpath>
@@ -482,30 +500,11 @@
                         </group>
                     </group>
                 </notebook>
+
+<!--
                 <xpath expr="//group[@name='sale']" position="after">
-                    <group>
-                        <group string='Livraison'>
-                            <field name="lot_livraison_vsb"      invisible="1"/>
-                            <field name="lot_livraison"          attrs="{'invisible': [('lot_livraison_vsb', '=', True)]}"/>
-                            <field name="multiple_livraison_vsb" invisible="1"/>
-                            <field name="multiple_livraison"     attrs="{'invisible': [('multiple_livraison_vsb', '=', True)]}"/>
-                        </group>
-                    </group>
-
-                    <group>
-                        <field name="is_client_ids_vsb" invisible="1"/>
-                        <field name="is_client_ids" nolabel="1" attrs="{'invisible': [('is_client_ids_vsb', '=', True)]}">
-                            <tree editable="bottom"  create="true">
-                                <field name="client_id" widget="many2one_clickable"/>
-                                <field name="client_defaut"/>
-                                <field name="lot_livraison"/>
-                                <field name="multiple_livraison"/>
-                            </tree>
-                        </field>
-                    </group>
-
                 </xpath>
-
+-->
 
 
                 <xpath expr="//div[@name='options']" position="attributes" >
@@ -601,7 +600,6 @@
                     <field name="is_gestionnaire_id"/>
                     <field name="is_mold_id"/>
                     <field name="is_dossierf_id"/>
-                    <field name="is_client_id"  />
                     <field name="is_ref_client"/>
                     <field name="is_ref_plan"/>
                     <field name="is_ind_plan"/>
@@ -627,7 +625,6 @@
                     <field name="is_gestionnaire_id"/>
                     <field name="is_mold_id"/>
                     <field name="is_dossierf_id"/>
-                    <field name="is_client_id"  />
                     <field name="is_ref_client"/>
                 </search>
             </field>
@@ -648,6 +645,68 @@
             <field name="view_mode">tree</field>
             <field name="view_id" ref="is_product_tree_view"/>
         </record>
+
+
+
+
+
+
+
+        <record id="is_product_product_tree_view" model="ir.ui.view">
+            <field name="name">is_product_product_tree_view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_code']" position="attributes" >
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='attribute_value_ids']" position="attributes" >
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='lst_price']" position="attributes" >
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='price']" position="attributes" >
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='uom_id']" position="attributes" >
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='ean13']" position="attributes" >
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='name']" position="before" >
+                    <field name="is_code"/>
+                </xpath>
+            </field>
+        </record> 
+
+
+
+<!--
+        <record id="product_product_tree_view" model="ir.ui.view">
+            <field name="name">product.product.tree</field>
+            <field name="model">product.product</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+
+                <tree string="Product Variants">
+                    <field name="default_code"/>
+                    <field name="name"/>
+                    <field name="attribute_value_ids" widget="many2many_tags"/>
+                    <field name="lst_price"/>
+                    <field name="price" invisible="not context.get('pricelist',False)"/>
+                    <field name="uom_id"/>
+                    <field name="ean13"/>
+                    <field name="state" invisible="1"/>
+                    <field name="product_tmpl_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+-->
+
+
 
     </data>
 </openerp>

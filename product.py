@@ -224,8 +224,6 @@ class product_template(models.Model):
     is_client_ids_vsb             = fields.Boolean('Clients', store=False, compute='_compute')
 
 
-
-
     is_ref_plan                   = fields.Char('Référence plan')
     is_ref_plan_vsb               = fields.Boolean('Référence plan', store=False, compute='_compute')
 
@@ -280,15 +278,6 @@ class product_template(models.Model):
     is_produit_perissable         = fields.Boolean('Produit périssable')
     is_produit_perissable_vsb     = fields.Boolean('Produit périssable', store=False, compute='_compute')
 
-
-
-
-    lot_livraison                 = fields.Float('Lot de livraison')
-    lot_livraison_vsb             = fields.Boolean('Lot de livraison', store=False, compute='_compute')
-
-    multiple_livraison            = fields.Float('Multiple de livraison')
-    multiple_livraison_vsb        = fields.Boolean('Multiple de livraison', store=False, compute='_compute')
-
     is_section_analytique_id      = fields.Many2one('is.section.analytique', 'Section analytique')
     is_section_analytique_id_vsb  = fields.Boolean('Section analytique', store=False, compute='_compute')
 
@@ -324,33 +313,44 @@ class product_template(models.Model):
         return res
 
 
-
     def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=100):
         if not args:
             args = []
         if name:
-            positive_operators = ['=', 'ilike', '=ilike', 'like', '=like']
-            ids = []
-            if operator in positive_operators:
-                ids = self.search(cr, user, [('is_code','=',name)]+ args, limit=limit, context=context)
-                if not ids:
-                    ids = self.search(cr, user, [('ean13','=',name)]+ args, limit=limit, context=context)
-            if not ids and operator not in expression.NEGATIVE_TERM_OPERATORS:
-                ids = self.search(cr, user, args + [('is_code', operator, name)], limit=limit, context=context)
-                if not limit or len(ids) < limit:
-                    limit2 = (limit - len(ids)) if limit else False
-                    ids += self.search(cr, user, args + [('name', operator, name), ('id', 'not in', ids)], limit=limit2, context=context)
-            elif not ids and operator in expression.NEGATIVE_TERM_OPERATORS:
-                ids = self.search(cr, user, args + ['&', ('is_code', operator, name), ('name', operator, name)], limit=limit, context=context)
-            if not ids and operator in positive_operators:
-                ptrn = re.compile('(\[(.*?)\])')
-                res = ptrn.search(name)
-                if res:
-                    ids = self.search(cr, user, [('is_code','=', res.group(2))] + args, limit=limit, context=context)
+            ids = self.search(cr, user, [('is_code','ilike', name)], limit=limit, context=context)
         else:
             ids = self.search(cr, user, args, limit=limit, context=context)
         result = self.name_get(cr, user, ids, context=context)
         return result
+
+
+
+#    def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=100):
+#        if not args:
+#            args = []
+#        if name:
+#            positive_operators = ['=', 'ilike', '=ilike', 'like', '=like']
+#            ids = []
+#            if operator in positive_operators:
+#                ids = self.search(cr, user, [('is_code','=',name)]+ args, limit=limit, context=context)
+#                if not ids:
+#                    ids = self.search(cr, user, [('ean13','=',name)]+ args, limit=limit, context=context)
+#            if not ids and operator not in expression.NEGATIVE_TERM_OPERATORS:
+#                ids = self.search(cr, user, args + [('is_code', operator, name)], limit=limit, context=context)
+#                if not limit or len(ids) < limit:
+#                    limit2 = (limit - len(ids)) if limit else False
+#                    ids += self.search(cr, user, args + [('name', operator, name), ('id', 'not in', ids)], limit=limit2, context=context)
+#            elif not ids and operator in expression.NEGATIVE_TERM_OPERATORS:
+#                ids = self.search(cr, user, args + ['&', ('is_code', operator, name), ('name', operator, name)], limit=limit, context=context)
+#            if not ids and operator in positive_operators:
+#                ptrn = re.compile('(\[(.*?)\])')
+#                res = ptrn.search(name)
+#                if res:
+#                    ids = self.search(cr, user, [('is_code','=', res.group(2))] + args, limit=limit, context=context)
+#        else:
+#            ids = self.search(cr, user, args, limit=limit, context=context)
+#        result = self.name_get(cr, user, ids, context=context)
+#        return result
 
 
     def onchange_segment_id(self, cr, uid, ids, segment_id, context=None):
@@ -423,32 +423,44 @@ class product_product(models.Model):
             res.append((product.id,name))
         return res
 
+
     def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=100):
         if not args:
             args = []
         if name:
-            positive_operators = ['=', 'ilike', '=ilike', 'like', '=like']
-            ids = []
-            if operator in positive_operators:
-                ids = self.search(cr, user, [('is_code','=',name)]+ args, limit=limit, context=context)
-                if not ids:
-                    ids = self.search(cr, user, [('ean13','=',name)]+ args, limit=limit, context=context)
-            if not ids and operator not in expression.NEGATIVE_TERM_OPERATORS:
-                ids = self.search(cr, user, args + [('is_code', operator, name)], limit=limit, context=context)
-                if not limit or len(ids) < limit:
-                    limit2 = (limit - len(ids)) if limit else False
-                    ids += self.search(cr, user, args + [('name', operator, name), ('id', 'not in', ids)], limit=limit2, context=context)
-            elif not ids and operator in expression.NEGATIVE_TERM_OPERATORS:
-                ids = self.search(cr, user, args + ['&', ('is_code', operator, name), ('name', operator, name)], limit=limit, context=context)
-            if not ids and operator in positive_operators:
-                ptrn = re.compile('(\[(.*?)\])')
-                res = ptrn.search(name)
-                if res:
-                    ids = self.search(cr, user, [('is_code','=', res.group(2))] + args, limit=limit, context=context)
+            ids = self.search(cr, user, [('is_code','ilike', name)], limit=limit, context=context)
         else:
             ids = self.search(cr, user, args, limit=limit, context=context)
         result = self.name_get(cr, user, ids, context=context)
         return result
+
+
+#    def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=100):
+#        if not args:
+#            args = []
+#        if name:
+#            positive_operators = ['=', 'ilike', '=ilike', 'like', '=like']
+#            ids = []
+#            if operator in positive_operators:
+#                ids = self.search(cr, user, [('is_code','=',name)]+ args, limit=limit, context=context)
+#                if not ids:
+#                    ids = self.search(cr, user, [('ean13','=',name)]+ args, limit=limit, context=context)
+#            if not ids and operator not in expression.NEGATIVE_TERM_OPERATORS:
+#                ids = self.search(cr, user, args + [('is_code', operator, name)], limit=limit, context=context)
+#                if not limit or len(ids) < limit:
+#                    limit2 = (limit - len(ids)) if limit else False
+#                    ids += self.search(cr, user, args + [('name', operator, name), ('id', 'not in', ids)], limit=limit2, context=context)
+#            elif not ids and operator in expression.NEGATIVE_TERM_OPERATORS:
+#                ids = self.search(cr, user, args + ['&', ('is_code', operator, name), ('name', operator, name)], limit=limit, context=context)
+#            if not ids and operator in positive_operators:
+#                ptrn = re.compile('(\[(.*?)\])')
+#                res = ptrn.search(name)
+#                if res:
+#                    ids = self.search(cr, user, [('is_code','=', res.group(2))] + args, limit=limit, context=context)
+#        else:
+#            ids = self.search(cr, user, args, limit=limit, context=context)
+#        result = self.name_get(cr, user, ids, context=context)
+#        return result
 
 
 
