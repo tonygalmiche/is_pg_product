@@ -415,6 +415,7 @@ class product_template(models.Model):
 
 class product_product(models.Model):
     _inherit = 'product.product'
+    _order   = 'is_code'
 
     def name_get(self, cr, uid, ids, context=None):
         res = []
