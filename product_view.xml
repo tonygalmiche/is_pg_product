@@ -228,6 +228,7 @@
             <sheet>
               <group col="2" colspan="4">
                 <field name="name"/> 
+                <field name="actif"/> 
                 <field name="commentaire"/> 
               </group>
             </sheet>
@@ -239,8 +240,9 @@
           <field name="model">is.gestionnaire</field>
           <field name="type">tree</field>
            <field name="arch" type="xml">
-            <tree string="tree">
+            <tree string="tree" editable="top">
               <field name="name"/>
+              <field name="actif"/> 
               <field name="commentaire"/> 
             </tree>
           </field>

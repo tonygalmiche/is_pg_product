@@ -91,7 +91,13 @@ class is_gestionnaire(models.Model):
     _sql_constraints = [('name_uniq','UNIQUE(name)', 'Ce code existe déjà')] 
 
     name        = fields.Char("Code",size=40,required=True, select=True)
+    actif       = fields.Boolean('Actif')
     commentaire = fields.Text('Commentaire')
+
+    _defaults = {
+        'actif': True,
+    }
+
 
 
 class is_section_analytique(models.Model):
