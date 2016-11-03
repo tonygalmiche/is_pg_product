@@ -294,7 +294,8 @@ class product_template(models.Model):
     volume_vsb                    = fields.Boolean('Volume'    , store=False, compute='_compute')
     weight_vsb                    = fields.Boolean('Poids brut', store=False, compute='_compute')
     weight_net_vsb                = fields.Boolean('Poids net' , store=False, compute='_compute')
-    
+
+
     _defaults = {        
         'list_price': 0.0,
         'standard_price': 0.0,
