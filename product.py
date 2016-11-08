@@ -221,11 +221,6 @@ class product_template(models.Model):
     is_ref_client                 = fields.Char('Référence client')
     is_ref_client_vsb             = fields.Boolean('Référence client', store=False, compute='_compute')
 
-
-
-    is_client_id                  = fields.Many2one('res.partner', 'Client par défaut', help="Ce champ est utilisé pour la liste des stocks par client et pour les étiquettes Galia")
-    is_client_id_vsb              = fields.Boolean('Client par défaut', store=False, compute='_compute')
-
     is_client_ids                 = fields.One2many('is.product.client', 'product_id', u"Clients")
     is_client_ids_vsb             = fields.Boolean('Clients', store=False, compute='_compute')
 
