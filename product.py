@@ -319,7 +319,7 @@ class product_template(models.Model):
         if not args:
             args = []
         if name:
-            ids = self.search(cr, user, [('is_code','ilike', name)], limit=limit, context=context)
+            ids = self.search(cr, user, ['|',('is_code','ilike', name),('name','ilike', name)], limit=limit, context=context)
         else:
             ids = self.search(cr, user, args, limit=limit, context=context)
         result = self.name_get(cr, user, ids, context=context)
@@ -431,7 +431,7 @@ class product_product(models.Model):
         if not args:
             args = []
         if name:
-            ids = self.search(cr, user, [('is_code','ilike', name)], limit=limit, context=context)
+            ids = self.search(cr, user, ['|',('is_code','ilike', name),('name','ilike', name)], limit=limit, context=context)
         else:
             ids = self.search(cr, user, args, limit=limit, context=context)
         result = self.name_get(cr, user, ids, context=context)

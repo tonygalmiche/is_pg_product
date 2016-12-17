@@ -16,7 +16,7 @@ Ameliorer la fiche article
         #'is_mold'
     ],
     'data': [
-        'security/is_pg_security.xml',
+        #'security/is_pg_security.xml',
         'security/ir.model.access.csv',
         'product_view.xml',
     ],
