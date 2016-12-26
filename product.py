@@ -291,6 +291,8 @@ class product_template(models.Model):
     is_budget_fv                  = fields.Selection([('F','Fixe'),('V','Variable')], "Budget Fixe ou Variable")
     is_budget_fv_vsb              = fields.Boolean('Budget Fixe ou Variable', store=False, compute='_compute')
 
+    is_ctrl_rcp                   = fields.Selection([('bloque','Produit bloqué')], "Contrôle réception")
+    is_ctrl_rcp_vsb               = fields.Boolean('Contrôle réception', store=False, compute='_compute')
 
     volume_vsb                    = fields.Boolean('Volume'    , store=False, compute='_compute')
     weight_vsb                    = fields.Boolean('Poids brut', store=False, compute='_compute')

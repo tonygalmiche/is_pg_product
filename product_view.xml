@@ -435,6 +435,8 @@
                                 <field name="is_soumise_regl" attrs="{'invisible': [('is_soumise_regl_vsb', '=', True)]}"/>
                                 <field name="is_livree_aqp_vsb" invisible="1"/>
                                 <field name="is_livree_aqp" attrs="{'invisible': [('is_livree_aqp_vsb', '=', True)]}"/>
+                                <field name="is_ctrl_rcp_vsb" invisible="1"/>
+                                <field name="is_ctrl_rcp" attrs="{'invisible': [('is_ctrl_rcp_vsb', '=', True)]}"/>
                                 <field name="is_droite_grauche_vsb" invisible="1"/>
                                 <field name="is_droite_grauche" attrs="{'invisible': [('is_droite_grauche_vsb', '=', True)]}"/>
 
