@@ -180,6 +180,13 @@ class product_template(models.Model):
     @api.depends('segment_id')
     def _compute(self):
         for obj in self:
+            #** Conditionnement (UC) *******************************************
+            if obj.packaging_ids:
+                packaging=obj.packaging_ids[0]
+                obj.is_uc    = packaging.ul.name
+                obj.is_uc_qt = packaging.qty
+            #*******************************************************************
+
             if len(obj.segment_id)==0:
                 # Si pas de segment => Masquer tous les champs
                 for model in self.env['ir.model'].search([['model','=',self._name]]):
@@ -297,6 +304,10 @@ class product_template(models.Model):
     volume_vsb                    = fields.Boolean('Volume'    , store=False, compute='_compute')
     weight_vsb                    = fields.Boolean('Poids brut', store=False, compute='_compute')
     weight_net_vsb                = fields.Boolean('Poids net' , store=False, compute='_compute')
+
+
+    is_uc                         = fields.Char('UC'      , store=False, compute='_compute')
+    is_uc_qt                      = fields.Integer('Qt/UC', store=False, compute='_compute')
 
 
     _defaults = {        
