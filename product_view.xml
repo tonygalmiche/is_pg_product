@@ -597,8 +597,8 @@
                     <field name="family_id"/>
                     <field name="is_category_id"/>
                     <field name="is_gestionnaire_id"/>
-                    <field name="is_mold_id"/>
-                    <field name="is_dossierf_id"/>
+                    <field name="is_mold_dossierf"/>
+                    <field name="is_client_defaut_id"/>
                     <field name="is_ref_client"/>
                     <field name="is_ref_plan"/>
                     <field name="is_ind_plan"/>

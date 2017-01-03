@@ -187,6 +187,23 @@ class product_template(models.Model):
                 obj.is_uc_qt = packaging.qty
             #*******************************************************************
 
+            #** Moule ou dossier F *********************************************
+            mold_dossierf=False
+            if obj.is_dossierf_id:
+                mold_dossierf=obj.is_dossierf_id.name
+            if obj.is_mold_id:
+                mold_dossierf=obj.is_mold_id.name
+            obj.is_mold_dossierf=mold_dossierf
+            #*******************************************************************
+
+            #** Client par défaut **********************************************
+            client_id=False
+            for line in obj.is_client_ids:
+                if line.client_defaut:
+                    client_id=line.client_id
+            obj.is_client_defaut_id=client_id
+            #*******************************************************************
+
             if len(obj.segment_id)==0:
                 # Si pas de segment => Masquer tous les champs
                 for model in self.env['ir.model'].search([['model','=',self._name]]):
@@ -305,10 +322,11 @@ class product_template(models.Model):
     weight_vsb                    = fields.Boolean('Poids brut', store=False, compute='_compute')
     weight_net_vsb                = fields.Boolean('Poids net' , store=False, compute='_compute')
 
-
     is_uc                         = fields.Char('UC'      , store=False, compute='_compute')
     is_uc_qt                      = fields.Integer('Qt/UC', store=False, compute='_compute')
 
+    is_mold_dossierf              = fields.Char('Moule ou Dossier F', store=False, compute='_compute')
+    is_client_defaut_id           = fields.Many2one('res.partner', 'Client par défaut', compute='_compute')
 
     _defaults = {        
         'list_price': 0.0,
@@ -319,14 +337,12 @@ class product_template(models.Model):
         'temps_realisation': 0.0,
     }
 
-
     def name_get(self, cr, uid, ids, context=None):
         res = []
         for product in self.browse(cr, uid, ids, context=context):
             name=product.is_code+" "+product.name
             res.append((product.id,name))
         return res
-
 
     def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=100):
         if not args:
