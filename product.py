@@ -177,6 +177,21 @@ class product_template(models.Model):
     _order='is_code'
     _sql_constraints = [('is_default_code_uniq','UNIQUE(is_code)', 'Ce code existe déjà')]
 
+
+
+
+    @api.depends('is_mold_id','is_dossierf_id')
+    def _compute_is_mold_dossierf(self):
+        for obj in self:
+            mold_dossierf=False
+            if obj.is_dossierf_id:
+                mold_dossierf=obj.is_dossierf_id.name
+            if obj.is_mold_id:
+                mold_dossierf=obj.is_mold_id.name
+            obj.is_mold_dossierf=mold_dossierf
+
+
+
     @api.depends('segment_id')
     def _compute(self):
         for obj in self:
@@ -187,14 +202,14 @@ class product_template(models.Model):
                 obj.is_uc_qt = packaging.qty
             #*******************************************************************
 
-            #** Moule ou dossier F *********************************************
-            mold_dossierf=False
-            if obj.is_dossierf_id:
-                mold_dossierf=obj.is_dossierf_id.name
-            if obj.is_mold_id:
-                mold_dossierf=obj.is_mold_id.name
-            obj.is_mold_dossierf=mold_dossierf
-            #*******************************************************************
+#            #** Moule ou dossier F *********************************************
+#            mold_dossierf=False
+#            if obj.is_dossierf_id:
+#                mold_dossierf=obj.is_dossierf_id.name
+#            if obj.is_mold_id:
+#                mold_dossierf=obj.is_mold_id.name
+#            obj.is_mold_dossierf=mold_dossierf
+#            #*******************************************************************
 
             #** Client par défaut **********************************************
             client_id=False
@@ -325,7 +340,9 @@ class product_template(models.Model):
     is_uc                         = fields.Char('UC'      , store=False, compute='_compute')
     is_uc_qt                      = fields.Integer('Qt/UC', store=False, compute='_compute')
 
-    is_mold_dossierf              = fields.Char('Moule ou Dossier F', store=False, compute='_compute')
+    is_mold_dossierf              = fields.Char('Moule ou Dossier F', store=True, compute='_compute_is_mold_dossierf')
+
+
     is_client_defaut_id           = fields.Many2one('res.partner', 'Client par défaut', compute='_compute')
 
     _defaults = {        
