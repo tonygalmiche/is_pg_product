@@ -236,7 +236,7 @@ class product_template(models.Model):
                 config_champ=self.env['is.config.champ'].search([['name', '=', obj.segment_id.id]])
                 for o in config_champ:
                     for line in o.champs_line:
-                        if line.vsb==False:
+                        if line.vsb==False and line.name:
                             setattr(obj, line.name.name, True)
 
 
@@ -320,6 +320,9 @@ class product_template(models.Model):
 
     is_section_analytique_id      = fields.Many2one('is.section.analytique', 'Section analytique')
     is_section_analytique_id_vsb  = fields.Boolean('Section analytique', store=False, compute='_compute')
+
+    is_facturable                 = fields.Boolean('Article facturable', default=True)
+    is_facturable_vsb             = fields.Boolean('Article facturable', store=False, compute='_compute')
 
     is_budget_responsable_id      = fields.Many2one('is.budget.responsable', 'Responsable budget')
     is_budget_responsable_id_vsb  = fields.Boolean('Responsable budget', store=False, compute='_compute')

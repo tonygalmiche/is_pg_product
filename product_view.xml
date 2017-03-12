@@ -512,6 +512,10 @@
                 <xpath expr="//field[@name='taxes_id']" position="after">
                     <field name="is_section_analytique_id_vsb" invisible="1"/>
                     <field name="is_section_analytique_id"     attrs="{'invisible': [('is_section_analytique_id_vsb', '=', True)]}"/>
+
+                    <field name="is_facturable_vsb" invisible="1"/>
+                    <field name="is_facturable" attrs="{'invisible': [('is_facturable_vsb', '=', True)]}"/>
+
                     <field name="is_budget_nature_id_vsb"      invisible="1"/>
                     <field name="is_budget_nature_id"          attrs="{'invisible': [('is_budget_nature_id_vsb', '=', True)]}"/>
                     <field name="is_budget_responsable_id_vsb" invisible="1"/>
