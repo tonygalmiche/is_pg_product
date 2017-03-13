@@ -178,8 +178,6 @@ class product_template(models.Model):
     _sql_constraints = [('is_default_code_uniq','UNIQUE(is_code)', 'Ce code existe déjà')]
 
 
-
-
     @api.depends('is_mold_id','is_dossierf_id')
     def _compute_is_mold_dossierf(self):
         for obj in self:
@@ -191,6 +189,25 @@ class product_template(models.Model):
             obj.is_mold_dossierf=mold_dossierf
 
 
+    @api.depends('is_client_ids')
+    def _compute_is_client_id(self):
+        for obj in self:
+            client_id=False
+            for line in obj.is_client_ids:
+                if line.client_defaut:
+                    client_id=line.client_id
+            obj.is_client_id=client_id
+
+
+    @api.depends('seller_ids')
+    def _compute_is_fournisseur_id(self):
+        for obj in self:
+            fournisseur_id=False
+            for line in obj.seller_ids:
+                fournisseur_id=line.name
+                break
+            obj.is_fournisseur_id=fournisseur_id
+
 
     @api.depends('segment_id')
     def _compute(self):
@@ -200,23 +217,6 @@ class product_template(models.Model):
                 packaging=obj.packaging_ids[0]
                 obj.is_uc    = packaging.ul.name
                 obj.is_uc_qt = packaging.qty
-            #*******************************************************************
-
-#            #** Moule ou dossier F *********************************************
-#            mold_dossierf=False
-#            if obj.is_dossierf_id:
-#                mold_dossierf=obj.is_dossierf_id.name
-#            if obj.is_mold_id:
-#                mold_dossierf=obj.is_mold_id.name
-#            obj.is_mold_dossierf=mold_dossierf
-#            #*******************************************************************
-
-            #** Client par défaut **********************************************
-            client_id=False
-            for line in obj.is_client_ids:
-                if line.client_defaut:
-                    client_id=line.client_id
-            obj.is_client_defaut_id=client_id
             #*******************************************************************
 
             if len(obj.segment_id)==0:
@@ -343,10 +343,10 @@ class product_template(models.Model):
     is_uc                         = fields.Char('UC'      , store=False, compute='_compute')
     is_uc_qt                      = fields.Integer('Qt/UC', store=False, compute='_compute')
 
-    is_mold_dossierf              = fields.Char('Moule ou Dossier F', store=True, compute='_compute_is_mold_dossierf')
+    is_mold_dossierf              = fields.Char('Moule ou Dossier F'                       , store=True, compute='_compute_is_mold_dossierf')
+    is_client_id                  = fields.Many2one('res.partner', 'Client par défaut'     , store=True, compute='_compute_is_client_id')
+    is_fournisseur_id             = fields.Many2one('res.partner', 'Fournisseur par défaut', store=True, compute='_compute_is_fournisseur_id')
 
-
-    is_client_defaut_id           = fields.Many2one('res.partner', 'Client par défaut', compute='_compute')
 
     _defaults = {        
         'list_price': 0.0,
