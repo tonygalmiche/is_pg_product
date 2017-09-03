@@ -318,8 +318,11 @@ class product_template(models.Model):
     is_produit_perissable         = fields.Boolean('Produit périssable')
     is_produit_perissable_vsb     = fields.Boolean('Produit périssable', store=False, compute='_compute')
 
-    is_section_analytique_id      = fields.Many2one('is.section.analytique', 'Section analytique')
-    is_section_analytique_id_vsb  = fields.Boolean('Section analytique', store=False, compute='_compute')
+    is_section_analytique_id      = fields.Many2one('is.section.analytique', 'Section analytique de revenus')
+    is_section_analytique_id_vsb  = fields.Boolean('Section analytique de revenus', store=False, compute='_compute')
+
+    is_section_analytique_ha_id      = fields.Many2one('is.section.analytique', 'Section analytique de dépenses')
+    is_section_analytique_ha_id_vsb  = fields.Boolean('Section analytique de dépenses', store=False, compute='_compute')
 
     is_facturable                 = fields.Boolean('Article facturable', default=True)
     is_facturable_vsb             = fields.Boolean('Article facturable', store=False, compute='_compute')

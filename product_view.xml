@@ -500,6 +500,12 @@
                     <field name="is_budget_fv_vsb"             invisible="1"/>
                     <field name="is_budget_fv"                 attrs="{'invisible': [('is_budget_fv_vsb', '=', True)]}"/>
                 </xpath>
+
+                <xpath expr="//field[@name='supplier_taxes_id']" position="after">
+                    <field name="is_section_analytique_ha_id_vsb" invisible="1"/>
+                    <field name="is_section_analytique_ha_id"     attrs="{'invisible': [('is_section_analytique_ha_id_vsb', '=', True)]}"/>
+                </xpath>
+
                 <xpath expr="//field[@name='standard_price']" position="replace" >
                     <div invisible="1">
                         <field name="standard_price"/>
