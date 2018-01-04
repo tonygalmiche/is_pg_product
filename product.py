@@ -291,6 +291,9 @@ class product_template(models.Model):
     is_couleur                    = fields.Char('Couleur / Type matière', help="Mettre la couleur pour les matières et la matière pour les produits fabriqués")
     is_couleur_vsb                = fields.Boolean('Couleur / Type matière', store=False, compute='_compute')
 
+    is_livraison_gefbox           = fields.Boolean('Livraison GEFBOX')
+    is_livraison_gefbox_vsb       = fields.Boolean('Livraison GEFBOX', store=False, compute='_compute')
+
     is_perte                      = fields.Float('% de perte')
     is_perte_vsb                  = fields.Boolean('% de perte', store=False, compute='_compute')
 

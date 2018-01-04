@@ -383,6 +383,8 @@
                     <field name="is_nomenclature_douaniere" attrs="{'invisible': [('is_nomenclature_douaniere_vsb', '=', True)]}"/>
                     <field name="is_couleur_vsb" invisible="1"/>
                     <field name="is_couleur" attrs="{'invisible': [('is_couleur_vsb', '=', True)]}"/>
+                    <field name="is_livraison_gefbox_vsb" invisible="1"/>
+                    <field name="is_livraison_gefbox" attrs="{'invisible': [('is_livraison_gefbox_vsb', '=', True)]}"/>
                     <field name="is_produit_perissable_vsb" invisible="1"/>
                     <field name="is_produit_perissable" attrs="{'invisible': [('is_produit_perissable_vsb', '=', True)]}"/>
                 </xpath>
