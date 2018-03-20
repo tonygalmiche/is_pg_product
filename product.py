@@ -346,6 +346,9 @@ class product_template(models.Model):
     weight_vsb                    = fields.Boolean('Poids brut', store=False, compute='_compute')
     weight_net_vsb                = fields.Boolean('Poids net' , store=False, compute='_compute')
 
+    is_location_vsb              = fields.Boolean('Emplacement de stockage', store=False, compute='_compute')
+    is_location                  = fields.Char('Emplacement de stockage')
+
     is_uc                         = fields.Char('UC'      , store=False, compute='_compute')
     is_uc_qt                      = fields.Integer('Qt/UC', store=False, compute='_compute')
 
