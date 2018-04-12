@@ -361,6 +361,43 @@
         </record>
 
 
+        <!-- is.emb.emplacement -->
+        <record id="is_emb_emplacement_tree_view" model="ir.ui.view">
+            <field name="name">is_emb_emplacement_tree_view</field>
+            <field name="model">is.emb.emplacement</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_emb_emplacement_action" model="ir.actions.act_window">
+            <field name="name">Emplacement emballage</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">is.emb.emplacement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+
+        <!-- is.emb.norme -->
+        <record id="is_emb_norme_tree_view" model="ir.ui.view">
+            <field name="name">is_emb_norme_tree_view</field>
+            <field name="model">is.emb.norme</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_emb_norme_action" model="ir.actions.act_window">
+            <field name="name">Norme emballage</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">is.emb.norme</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
 
         <!-- Fiche Article -->
         <record id="product_template_form_view" model="ir.ui.view">
@@ -387,6 +424,7 @@
                     <field name="is_livraison_gefbox" attrs="{'invisible': [('is_livraison_gefbox_vsb', '=', True)]}"/>
                     <field name="is_produit_perissable_vsb" invisible="1"/>
                     <field name="is_produit_perissable" attrs="{'invisible': [('is_produit_perissable_vsb', '=', True)]}"/>
+                    <field name="is_emb_vsb" invisible="1"/>
                 </xpath>
                 <xpath expr="//field[@name='uom_id']" position="after">
                     <field name="is_mold_id_vsb" invisible="1"/>
@@ -455,7 +493,29 @@
                                 </tree>
                             </field>
                         </group>
-
+                    </page>
+                    <page string="Emballage" attrs="{'invisible': [('is_emb_vsb', '=', True)]}">
+                        <group>
+                            <group string="Palettisation">
+                                <field name="is_emb_couvercle_id"/>
+                                <field name="is_emb_palette_id"/>
+                                <field name="is_emb_cerclage"/>
+                                <field name="is_emb_nb_uc_par_um"/>
+                                <field name="is_emb_matiere"/>
+                                <field name="is_emb_emplacement_id"/>
+                                <field name="is_emb_norme_id"/>
+                            </group>
+                            <group string="Dimensionnement">
+                                <field name="is_emb_long_interne"/>
+                                <field name="is_emb_larg_interne"/>
+                                <field name="is_emb_haut_interne"/>
+                                <field name="is_emb_long_externe"/>
+                                <field name="is_emb_larg_externe"/>
+                                <field name="is_emb_haut_externe"/>
+                                <field name="is_emb_haut_plie"/>
+                                <field name="is_emb_masse"/>
+                            </group>
+                        </group>
                     </page>
                 </xpath>
                 <xpath expr="//group[@name='sale_condition']" position="attributes" >

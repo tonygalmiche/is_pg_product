@@ -141,6 +141,14 @@ class is_product_sous_famille(models.Model):
     description = fields.Text('Commentaire')
 
 
+class is_emb_emplacement(models.Model):
+    _name = 'is.emb.emplacement'
+    name  = fields.Char('Emplacement', required=True)
+
+
+class is_emb_norme(models.Model):
+    _name = 'is.emb.norme'
+    name  = fields.Char('Nomenclature/Norme', required=True)
 
 
 class is_product_client(models.Model):
@@ -209,9 +217,10 @@ class product_template(models.Model):
             obj.is_fournisseur_id=fournisseur_id
 
 
-    @api.depends('segment_id')
+    @api.depends('segment_id','family_id')
     def _compute(self):
         for obj in self:
+
             #** Conditionnement (UC) *******************************************
             if obj.packaging_ids:
                 packaging=obj.packaging_ids[0]
@@ -238,6 +247,13 @@ class product_template(models.Model):
                     for line in o.champs_line:
                         if line.vsb==False and line.name:
                             setattr(obj, line.name.name, True)
+
+            #** Onglet Emballage ***********************************************
+            vsb=True
+            if obj.family_id.name=='EMBALLAGES':
+                vsb=False
+            obj.is_emb_vsb=vsb
+            #*******************************************************************
 
 
     is_code                       = fields.Char('Code PG', select=True, required=True)
@@ -355,6 +371,37 @@ class product_template(models.Model):
     is_mold_dossierf              = fields.Char('Moule ou Dossier F'                       , store=True, compute='_compute_is_mold_dossierf')
     is_client_id                  = fields.Many2one('res.partner', 'Client par défaut'     , store=True, compute='_compute_is_client_id')
     is_fournisseur_id             = fields.Many2one('res.partner', 'Fournisseur par défaut', store=True, compute='_compute_is_fournisseur_id')
+
+
+    #** Champs pour le livret logistique des emballages ************************
+    is_emb_vsb                    = fields.Boolean('Visibilité onglet Emballage', store=False, compute='_compute')
+    is_emb_couvercle_id           = fields.Many2one('product.template', u"Couvercle", domain=[('is_code','=like','700%')], help="Renseigné uniquement si l'emballage n'inclus pas déjà le couvercle")
+    is_emb_palette_id             = fields.Many2one('product.template', u"Palette"  , domain=[('is_code','=like','720%')], help="Renseigné uniquement si l'emballage n'inclus pas déjà la palette")
+    is_emb_cerclage               = fields.Selection([
+                                        ('filmage','filmage'),
+                                        ('cerclage','cerclage'),
+                                        ('filmage+cerclage','filmage+cerclage')
+                                    ], "Cerclage/film")
+    is_emb_nb_uc_par_um           = fields.Integer('Nb UC/UM')
+    is_emb_matiere                = fields.Selection([
+                                        ('bois'      , 'bois'),
+                                        ('carton'    , 'carton'),
+                                        ('grille'    , 'grille'),
+                                        ('metallique', 'métallique'),
+                                        ('plastique' , 'plastique'),
+                                    ], "Matière")
+
+    is_emb_emplacement_id         = fields.Many2one('is.emb.emplacement', 'Emplacement de stockage')
+    is_emb_norme_id               = fields.Many2one('is.emb.norme', 'Nomenclature/Norme')
+    is_emb_long_interne           = fields.Float('Longueur interne (mm)', digits=(14,2))
+    is_emb_larg_interne           = fields.Float('Largeur interne (mm)' , digits=(14,2))
+    is_emb_haut_interne           = fields.Float('Hauteur interne (mm)' , digits=(14,2))
+    is_emb_long_externe           = fields.Float('Longueur externe (mm)', digits=(14,2))
+    is_emb_larg_externe           = fields.Float('Largeur externe (mm)' , digits=(14,2))
+    is_emb_haut_externe           = fields.Float('Hauteur externe (mm)' , digits=(14,2))
+    is_emb_haut_plie              = fields.Float('Hauteur plié (mm)'    , digits=(14,2), help="0 = non pliable")
+    is_emb_masse                  = fields.Float('Masse (en kg)'        , digits=(14,3))
+    #***************************************************************************
 
 
     _defaults = {        
