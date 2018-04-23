@@ -501,6 +501,7 @@
                                 <field name="is_emb_palette_id"/>
                                 <field name="is_emb_cerclage"/>
                                 <field name="is_emb_nb_uc_par_um"/>
+                                <field name="is_gerbage_stockage"/>
                                 <field name="is_emb_matiere"/>
                                 <field name="is_emb_emplacement_id"/>
                                 <field name="is_emb_norme_id"/>

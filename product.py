@@ -383,6 +383,7 @@ class product_template(models.Model):
                                         ('filmage+cerclage','filmage+cerclage')
                                     ], "Cerclage/film")
     is_emb_nb_uc_par_um           = fields.Integer('Nb UC/UM')
+    is_gerbage_stockage           = fields.Integer('Gerbage au stockage')
     is_emb_matiere                = fields.Selection([
                                         ('bois'      , 'bois'),
                                         ('carton'    , 'carton'),
