@@ -437,6 +437,7 @@
                     <field name="is_ref_fournisseur" attrs="{'invisible': [('is_ref_fournisseur_vsb', '=', True)]}"/>
                     <field name="is_origine_produit_id_vsb" invisible="1"/>
                     <field name="is_origine_produit_id" attrs="{'invisible': [('is_origine_produit_id_vsb', '=', True)]}"/>
+                    <field name="is_dosmat_ctrl_qual"/>
                 </xpath> 
                 <xpath expr="//div[@class='oe_title']" position="attributes">
                     <attribute name="invisible">1</attribute>

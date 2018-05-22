@@ -372,6 +372,8 @@ class product_template(models.Model):
     is_client_id                  = fields.Many2one('res.partner', 'Client par défaut'     , store=True, compute='_compute_is_client_id')
     is_fournisseur_id             = fields.Many2one('res.partner', 'Fournisseur par défaut', store=True, compute='_compute_is_fournisseur_id')
 
+    is_dosmat_ctrl_qual           = fields.Char('Contrôle qualité', readonly=True)
+
 
     #** Champs pour le livret logistique des emballages ************************
     is_emb_vsb                    = fields.Boolean('Visibilité onglet Emballage', store=False, compute='_compute')
