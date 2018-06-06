@@ -448,7 +448,7 @@
             </field>
         </record>
         <record id="is_code_cas_action" model="ir.actions.act_window">
-            <field name="name">Type d'étiquette</field>
+            <field name="name">Code CAS</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">is.code.cas</field>
             <field name="view_type">form</field>
