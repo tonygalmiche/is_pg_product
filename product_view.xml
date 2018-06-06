@@ -399,6 +399,63 @@
         </record>
 
 
+        <!-- Code CAS -->
+        <record id="is_code_cas_tree_view" model="ir.ui.view">
+            <field name="name">is_code_cas_tree_view</field>
+            <field name="model">is.code.cas</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="code_einecs" />
+                    <field name="code_cas" />
+                    <field name="liste_echa" />
+                    <field name="poids_autorise" />
+                    <field name="interdit" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_code_cas_form_view" model="ir.ui.view">
+            <field name="name">is_code_cas_form_view</field>
+            <field name="model">is.code.cas</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" />
+                                <field name="code_einecs" />
+                                <field name="code_cas" />
+                                <field name="liste_echa" />
+                                <field name="poids_autorise" />
+                                <field name="interdit" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="is_code_cas_search_view" model="ir.ui.view">
+            <field name="name">is_code_cas_search_view</field>
+            <field name="model">is.code.cas</field>
+            <field name="arch" type="xml">
+                <search string="Recherche">
+                    <field name="name" />
+                    <field name="code_einecs" />
+                    <field name="code_cas" />
+                    <field name="liste_echa" />
+                    <field name="interdit" />
+                </search>
+            </field>
+        </record>
+        <record id="is_code_cas_action" model="ir.actions.act_window">
+            <field name="name">Type d'étiquette</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">is.code.cas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
         <!-- Fiche Article -->
         <record id="product_template_form_view" model="ir.ui.view">
             <field name="name">product_template_form_view</field>
@@ -425,6 +482,7 @@
                     <field name="is_produit_perissable_vsb" invisible="1"/>
                     <field name="is_produit_perissable" attrs="{'invisible': [('is_produit_perissable_vsb', '=', True)]}"/>
                     <field name="is_emb_vsb" invisible="1"/>
+                    <field name="is_code_cas_vsb" invisible="1"/>
                 </xpath>
                 <xpath expr="//field[@name='uom_id']" position="after">
                     <field name="is_mold_id_vsb" invisible="1"/>
@@ -451,10 +509,8 @@
                     <page string="Fabrication">
                         <group colspan="4">
                               <group>
-
                                 <field name="delai_cq_vsb" invisible="1"/>
                                 <field name="delai_cq" attrs="{'invisible': [('delai_cq_vsb', '=', True)]}"/>
-
                                 <field name="is_stock_secu_vsb" invisible="1"/>
                                 <field name="is_stock_secu" attrs="{'invisible': [('is_stock_secu_vsb', '=', True)]}"/>
                                 <field name="lot_mini_vsb" invisible="1"/>
@@ -465,7 +521,6 @@
                                 <field name="temps_realisation" attrs="{'invisible': [('temps_realisation_vsb', '=', True)]}"/>
                                 <field name="is_perte_vsb" invisible="1"/>
                                 <field name="is_perte" attrs="{'invisible': [('is_perte_vsb', '=', True)]}"/>
-
                               </group>
                               <group>
                                 <field name="is_destockage_vsb" invisible="1"/>
@@ -521,6 +576,16 @@
                                 <field name="is_emb_emplacement_id"/>
                                 <field name="is_gerbage_stockage"/>
                             </group>
+                        </group>
+                    </page>
+                    <page string="Code CAS" attrs="{'invisible': [('is_code_cas_vsb', '=', True)]}">
+                        <group>
+                            <field name="is_code_cas_ids" nolabel="1">
+                                <tree editable="bottom"  create="true">
+                                    <field name="code_cas_id" widget="many2one_clickable"/>
+                                    <field name="poids" />
+                                </tree>
+                            </field>
                         </group>
                     </page>
                 </xpath>

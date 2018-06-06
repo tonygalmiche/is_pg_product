@@ -5,6 +5,7 @@ from math import *
 from openerp.osv import expression
 from openerp import models,fields,api
 from openerp.tools.translate import _
+from openerp.exceptions import ValidationError
 
 
 class is_config_champ(models.Model):
@@ -179,6 +180,44 @@ class is_type_etiquette(models.Model):
     ], "Format de l'étiquette", required=True)
 
 
+class is_code_cas(models.Model):
+    _name='is.code.cas'
+    _order='name'
+
+    @api.constrains('poids_autorise')
+    def _check_poids_autorise(self):
+        for obj in self:
+            if obj.poids_autorise == 0:
+                raise ValidationError("% de poids autorisé obligatoire !")
+
+    name           = fields.Char("Nom de la substance"    , required=True)
+    code_einecs    = fields.Char('Code EINECS (EC Number)', required=True)
+    code_cas       = fields.Char('Code CAS'               , required=True)
+    liste_echa     = fields.Selection([ 
+        ('Oui','Oui'),
+        ('Non','Non'),
+    ], "Liste ECHA", required=True)
+    poids_autorise = fields.Float('% de poids autorisé', required=True, Default=0.1)
+    interdit       = fields.Selection([ 
+        ('Oui','Oui'),
+        ('Non','Non'),
+    ], "Substance interdire", required=True)
+
+
+class is_product_code_cas(models.Model):
+    _name='is.product.code.cas'
+    _order='code_cas_id'
+
+    @api.constrains('poids')
+    def _check_poids(self):
+        for obj in self:
+            if obj.poids == 0:
+                raise ValidationError("% en poids obligatoire !")
+
+    product_id   = fields.Many2one('product.template', 'Article', required=True, ondelete='cascade', readonly=True)
+    code_cas_id  = fields.Many2one('is.code.cas', 'Code CAS', required=True)
+    poids        = fields.Float('% en poids de ce code CAS dans cette matière', required=True)
+
 
 class product_template(models.Model):
     _inherit = 'product.template'
@@ -253,6 +292,13 @@ class product_template(models.Model):
             if obj.family_id.name=='EMBALLAGES':
                 vsb=False
             obj.is_emb_vsb=vsb
+            #*******************************************************************
+
+            #** Onglet Code CAS ************************************************
+            vsb=True
+            if obj.family_id.name=='MATIERE':
+                vsb=False
+            obj.is_code_cas_vsb=vsb
             #*******************************************************************
 
 
@@ -404,6 +450,11 @@ class product_template(models.Model):
     is_emb_haut_externe           = fields.Float('Hauteur externe (mm)' , digits=(14,2))
     is_emb_haut_plie              = fields.Float('Hauteur plié (mm)'    , digits=(14,2), help="0 = non pliable")
     is_emb_masse                  = fields.Float('Masse (en kg)'        , digits=(14,3))
+    #***************************************************************************
+
+    #** Onglet 'Code CAS' pour REACH pour les matière **************************
+    is_code_cas_vsb               = fields.Boolean('Visibilité onglet Code CAS', store=False, compute='_compute')
+    is_code_cas_ids               = fields.One2many('is.product.code.cas', 'product_id', u"Code CAS")
     #***************************************************************************
 
 

@@ -15,4 +15,11 @@ access_is_type_etiquette,access_is_type_etiquette,model_is_type_etiquette,base.g
 access_is_config_champ,access_is_config_champ,model_is_config_champ,base.group_user,1,0,0,0
 access_is_emb_emplacement,access_is_emb_emplacement,model_is_emb_emplacement,base.group_user,1,0,0,0
 access_is_emb_norme,access_is_emb_norme,model_is_emb_norme,base.group_user,1,0,0,0
+access_is_code_cas,access_is_code_cas,model_is_code_cas,base.group_user,1,0,0,0
+access_is_product_code_cas,access_is_product_code_cas,model_is_product_code_cas,base.group_user,1,0,0,0
+
+
+
+
+
 
