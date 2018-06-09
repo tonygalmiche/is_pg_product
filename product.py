@@ -204,6 +204,29 @@ class is_code_cas(models.Model):
     ], "Substance interdire", required=True)
 
 
+    def name_get(self, cr, uid, ids, context=None):
+        res = []
+        for obj in self.browse(cr, uid, ids, context=context):
+            name=obj.name+" / "+(obj.code_einecs or '')+" / "+(obj.code_cas or '')
+            res.append((obj.id,name))
+        return res
+
+    def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=100):
+        if not args:
+            args = []
+        if name:
+            ids = self.search(cr, user, ['|','|',('name','ilike', name),('code_einecs','ilike', name),('code_cas','ilike', name)], limit=limit, context=context)
+        else:
+            ids = self.search(cr, user, args, limit=limit, context=context)
+        result = self.name_get(cr, user, ids, context=context)
+        return result
+
+
+
+
+
+
+
 class is_product_code_cas(models.Model):
     _name='is.product.code.cas'
     _order='code_cas_id'
