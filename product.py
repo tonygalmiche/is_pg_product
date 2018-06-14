@@ -207,7 +207,8 @@ class is_code_cas(models.Model):
     def name_get(self, cr, uid, ids, context=None):
         res = []
         for obj in self.browse(cr, uid, ids, context=context):
-            name=obj.name+" / "+(obj.code_einecs or '')+" / "+(obj.code_cas or '')
+            #name=obj.name+" / "+(obj.code_einecs or '')+" / "+(obj.code_cas or '')
+            name=obj.code_cas or obj.name or obj.code_einecs
             res.append((obj.id,name))
         return res
 
