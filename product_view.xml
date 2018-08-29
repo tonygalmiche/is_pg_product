@@ -11,6 +11,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
+                    <field name="afficher_onglet_cas"/>
                 </tree>
             </field>
         </record>
@@ -33,6 +34,9 @@
                                 <field name="vsb"/>
                             </tree>
                         </field>
+                    </group>
+                    <group>
+                        <field name="afficher_onglet_cas"/>
                     </group>
                 </sheet>
             </form>

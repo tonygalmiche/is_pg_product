@@ -12,8 +12,9 @@ class is_config_champ(models.Model):
     _name='is.config.champ'
     _order='name'
 
-    name        = fields.Many2one('is.product.segment', 'Segment à paramètrer', required=False)
-    champs_line = fields.One2many('is.config.champ.line', 'segment_id', 'Champs')
+    name                = fields.Many2one('is.product.segment', 'Segment à paramètrer', required=False)
+    afficher_onglet_cas = fields.Boolean("Afficher l'onglet 'Code CAS'", default=False)
+    champs_line         = fields.One2many('is.config.champ.line', 'segment_id', 'Champs')
 
     _sql_constraints = [
         ('name_uniq'       , 'unique(name)'       , u"Ce formulaire existe déja !"),
@@ -291,6 +292,7 @@ class product_template(models.Model):
                 obj.is_uc_qt = packaging.qty
             #*******************************************************************
 
+
             if len(obj.segment_id)==0:
                 # Si pas de segment => Masquer tous les champs
                 for model in self.env['ir.model'].search([['model','=',self._name]]):
@@ -310,19 +312,17 @@ class product_template(models.Model):
                     for line in o.champs_line:
                         if line.vsb==False and line.name:
                             setattr(obj, line.name.name, True)
+                    #** Onglet Code CAS ****************************************
+                    if o.afficher_onglet_cas==False:
+                        obj.is_code_cas_vsb=True
+                    #***********************************************************
+
 
             #** Onglet Emballage ***********************************************
             vsb=True
             if obj.family_id.name=='EMBALLAGES':
                 vsb=False
             obj.is_emb_vsb=vsb
-            #*******************************************************************
-
-            #** Onglet Code CAS ************************************************
-            vsb=True
-            if obj.family_id.name=='MATIERE':
-                vsb=False
-            obj.is_code_cas_vsb=vsb
             #*******************************************************************
 
 
