@@ -184,7 +184,8 @@
                             <field name="name"/> 
                             <field name="commentaire"/> 
                             <field name="fantome"/> 
-                            <field name="calcul_cout"/> 
+                            <field name="calcul_cout"/>
+                            <field name="a_inventorier"/> 
                         </group>
                     </sheet>
                 </form>
@@ -199,7 +200,8 @@
                     <field name="name"/>
                     <field name="commentaire"/> 
                     <field name="fantome"/> 
-                    <field name="calcul_cout"/> 
+                    <field name="calcul_cout"/>
+                    <field name="a_inventorier"/> 
                 </tree>
             </field>
         </record>

@@ -70,6 +70,8 @@ class is_category(models.Model):
         help="Si cette case est cochée, les articles de cette catégorie passeront en fantôme dans les composants de la nomenclature")
     calcul_cout  = fields.Boolean('Calculer le coût', \
         help="Si cette case est cochée, le coût sera calculé pour les articles de cette catégorie")
+    a_inventorier = fields.Boolean(u'Articles à inventorier', \
+        help="Si cette case est cochée, les articles de cette catégorie seront inventoriés",default=True)
 
     _defaults = {
         'calcul_cout': True,
