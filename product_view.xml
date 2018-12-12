@@ -749,6 +749,7 @@
                     <field name="segment_id"/>
                     <field name="family_id"/>
                     <field name="is_category_id"/>
+                    <field name="is_ctrl_rcp"/>
                     <field name="is_gestionnaire_id"/>
                     <field name="is_mold_id"/>
                     <field name="is_dossierf_id"/>
