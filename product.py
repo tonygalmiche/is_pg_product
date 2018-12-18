@@ -193,9 +193,9 @@ class is_code_cas(models.Model):
             if obj.poids_autorise == 0:
                 raise ValidationError("% de poids autorisé obligatoire !")
 
-    name           = fields.Char("Nom de la substance"    , required=True)
-    code_einecs    = fields.Char('Code EINECS (EC Number)', required=True)
-    code_cas       = fields.Char('Code CAS'               , required=True)
+    name           = fields.Char("Nom de la substance",           required=True)
+    code_einecs    = fields.Char('Code EINECS (EC Number)',       required=True)
+    code_cas       = fields.Char('Substance présente (code CAS)', required=True)
     liste_echa     = fields.Selection([ 
         ('Oui','Oui'),
         ('Non','Non'),
@@ -204,7 +204,7 @@ class is_code_cas(models.Model):
     interdit       = fields.Selection([ 
         ('Oui','Oui'),
         ('Non','Non'),
-    ], "Substance interdire", required=True)
+    ], "Substance réglementée", required=True)
 
 
     def name_get(self, cr, uid, ids, context=None):
