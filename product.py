@@ -364,7 +364,7 @@ class product_template(models.Model):
     is_stock_secu                 = fields.Integer('Stock de sécurité')
     is_stock_secu_vsb             = fields.Boolean('Stock de sécurité', store=False, compute='_compute')
 
-    is_soumise_regl               = fields.Selection([('SR','SR'),('R','R')], "Pièce soumise à réglementation")
+    is_soumise_regl               = fields.Selection([('S','S'),('R','R'),('SR','SR'),], "Pièce soumise à réglementation")
     is_soumise_regl_vsb           = fields.Boolean('Pièce soumise à réglementation', store=False, compute='_compute')
 
     is_livree_aqp                 = fields.Boolean('Pièce livrée en AQP')
