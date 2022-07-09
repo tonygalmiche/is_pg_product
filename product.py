@@ -376,6 +376,9 @@ class product_template(models.Model):
     is_type_etiquette_id          = fields.Many2one('is.type.etiquette', 'Type étiquette GALIA')
     is_type_etiquette_id_vsb      = fields.Boolean('Type étiquette GALIA', store=False, compute='_compute')
 
+    is_um_egale_uc                = fields.Boolean("UM=UC", help=u"Si l'UM est égale à l'UC, il faut cocher cette case et dans ce cas, l'étiquette UM ne sera pas imprimée")
+    is_um_egale_uc_vsb            = fields.Boolean('UM=UC', store=False, compute='_compute')
+
     is_couleur                    = fields.Char('Couleur / Type matière', help="Mettre la couleur pour les matières et la matière pour les produits fabriqués")
     is_couleur_vsb                = fields.Boolean('Couleur / Type matière', store=False, compute='_compute')
 
