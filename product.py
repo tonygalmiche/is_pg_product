@@ -391,6 +391,9 @@ class product_template(models.Model):
     is_destockage                 = fields.Boolean('Déstockage automatique nomenclature')
     is_destockage_vsb             = fields.Boolean('Déstockage automatique nomenclature', store=False, compute='_compute')
 
+    is_emplacement_destockage_id     = fields.Many2one('stock.location', u'Emplacement déstockage matières OF', domain=[('usage','=','internal')])
+    is_emplacement_destockage_id_vsb = fields.Boolean(u'Emplacement déstockage matières OF', store=False, compute='_compute')
+
     is_ref_fournisseur            = fields.Char('Référence fournisseur')
     is_ref_fournisseur_vsb        = fields.Boolean('Référence fournisseur', store=False, compute='_compute')
     
